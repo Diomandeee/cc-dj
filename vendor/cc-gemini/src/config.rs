@@ -50,6 +50,7 @@ pub const ENV_MAX_COST: &str = "GEMINI_MAX_COST";
 /// context window, and pricing tier.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "kebab-case")]
+#[derive(Default)]
 pub enum GeminiModel {
     /// Gemini 2.0 Flash - Fast multimodal model optimized for speed.
     ///
@@ -57,6 +58,7 @@ pub enum GeminiModel {
     /// - Pricing: $0.075/M input, $0.30/M output
     /// - Best for: Real-time applications, high-volume analysis
     #[serde(rename = "gemini-2.0-flash")]
+    #[default]
     Flash2_0,
 
     /// Gemini 2.0 Flash Lite - Lightweight version for simple tasks.
@@ -157,12 +159,6 @@ impl GeminiModel {
             "gemini-1.5-pro" | "pro-1.5" | "pro" => Some(GeminiModel::Pro1_5),
             _ => None,
         }
-    }
-}
-
-impl Default for GeminiModel {
-    fn default() -> Self {
-        GeminiModel::Flash2_0
     }
 }
 
@@ -294,8 +290,8 @@ impl Default for RetryConfig {
 impl RetryConfig {
     /// Calculate the delay for a given retry attempt (0-indexed).
     pub fn delay_for_attempt(&self, attempt: u32) -> Duration {
-        let base_delay = self.initial_delay.as_secs_f64()
-            * self.backoff_multiplier.powi(attempt as i32);
+        let base_delay =
+            self.initial_delay.as_secs_f64() * self.backoff_multiplier.powi(attempt as i32);
         let capped_delay = base_delay.min(self.max_delay.as_secs_f64());
 
         // Apply jitter
@@ -419,8 +415,8 @@ impl GeminiConfig {
     ///
     /// Returns `GeminiError::MissingEnvVar` if `GEMINI_API_KEY` is not set.
     pub fn from_env() -> Result<Self> {
-        let api_key = std::env::var(ENV_API_KEY)
-            .map_err(|_| GeminiError::missing_env(ENV_API_KEY))?;
+        let api_key =
+            std::env::var(ENV_API_KEY).map_err(|_| GeminiError::missing_env(ENV_API_KEY))?;
 
         let mut config = Self::new(api_key);
 
@@ -584,10 +580,7 @@ mod tests {
             GeminiModel::from_string("flash2"),
             Some(GeminiModel::Flash2_0)
         );
-        assert_eq!(
-            GeminiModel::from_string("pro"),
-            Some(GeminiModel::Pro1_5)
-        );
+        assert_eq!(GeminiModel::from_string("pro"), Some(GeminiModel::Pro1_5));
         assert_eq!(GeminiModel::from_string("invalid"), None);
     }
 

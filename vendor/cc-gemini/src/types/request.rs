@@ -84,21 +84,27 @@ impl GenerateContentRequest {
 
     /// Set the maximum output tokens.
     pub fn with_max_tokens(mut self, max_tokens: u32) -> Self {
-        let config = self.generation_config.get_or_insert_with(GenerationConfig::default);
+        let config = self
+            .generation_config
+            .get_or_insert_with(GenerationConfig::default);
         config.max_output_tokens = Some(max_tokens);
         self
     }
 
     /// Set the temperature for response randomness.
     pub fn with_temperature(mut self, temperature: f32) -> Self {
-        let config = self.generation_config.get_or_insert_with(GenerationConfig::default);
+        let config = self
+            .generation_config
+            .get_or_insert_with(GenerationConfig::default);
         config.temperature = Some(temperature);
         self
     }
 
     /// Request JSON output format.
     pub fn with_json_output(mut self) -> Self {
-        let config = self.generation_config.get_or_insert_with(GenerationConfig::default);
+        let config = self
+            .generation_config
+            .get_or_insert_with(GenerationConfig::default);
         config.response_mime_type = Some("application/json".to_string());
         self
     }
@@ -124,11 +130,7 @@ impl Content {
     }
 
     /// Create a user message with image and text.
-    pub fn user_with_image(
-        image_data: &[u8],
-        mime_type: &str,
-        text: impl Into<String>,
-    ) -> Self {
+    pub fn user_with_image(image_data: &[u8], mime_type: &str, text: impl Into<String>) -> Self {
         Self {
             role: Role::User,
             parts: vec![Part::inline_image(image_data, mime_type), Part::text(text)],
@@ -348,26 +350,47 @@ pub struct SafetySetting {
 impl SafetySetting {
     /// Create a safety setting.
     pub fn new(category: HarmCategory, threshold: HarmBlockThreshold) -> Self {
-        Self { category, threshold }
+        Self {
+            category,
+            threshold,
+        }
     }
 
     /// Disable all safety filters (use with caution).
     pub fn none() -> Vec<SafetySetting> {
         vec![
             Self::new(HarmCategory::HateSpeech, HarmBlockThreshold::BlockNone),
-            Self::new(HarmCategory::DangerousContent, HarmBlockThreshold::BlockNone),
+            Self::new(
+                HarmCategory::DangerousContent,
+                HarmBlockThreshold::BlockNone,
+            ),
             Self::new(HarmCategory::Harassment, HarmBlockThreshold::BlockNone),
-            Self::new(HarmCategory::SexuallyExplicit, HarmBlockThreshold::BlockNone),
+            Self::new(
+                HarmCategory::SexuallyExplicit,
+                HarmBlockThreshold::BlockNone,
+            ),
         ]
     }
 
     /// Use default safety settings.
     pub fn default_settings() -> Vec<SafetySetting> {
         vec![
-            Self::new(HarmCategory::HateSpeech, HarmBlockThreshold::BlockMediumAndAbove),
-            Self::new(HarmCategory::DangerousContent, HarmBlockThreshold::BlockMediumAndAbove),
-            Self::new(HarmCategory::Harassment, HarmBlockThreshold::BlockMediumAndAbove),
-            Self::new(HarmCategory::SexuallyExplicit, HarmBlockThreshold::BlockMediumAndAbove),
+            Self::new(
+                HarmCategory::HateSpeech,
+                HarmBlockThreshold::BlockMediumAndAbove,
+            ),
+            Self::new(
+                HarmCategory::DangerousContent,
+                HarmBlockThreshold::BlockMediumAndAbove,
+            ),
+            Self::new(
+                HarmCategory::Harassment,
+                HarmBlockThreshold::BlockMediumAndAbove,
+            ),
+            Self::new(
+                HarmCategory::SexuallyExplicit,
+                HarmBlockThreshold::BlockMediumAndAbove,
+            ),
         ]
     }
 }
@@ -440,7 +463,10 @@ mod tests {
         let config = request.generation_config.unwrap();
         assert_eq!(config.temperature, Some(0.5));
         assert_eq!(config.max_output_tokens, Some(100));
-        assert_eq!(config.response_mime_type, Some("application/json".to_string()));
+        assert_eq!(
+            config.response_mime_type,
+            Some("application/json".to_string())
+        );
     }
 
     #[test]

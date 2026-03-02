@@ -40,13 +40,12 @@ impl ClientMessage {
     /// session resumption) from `LiveConfig` so they are serialized at the `setup`
     /// level rather than inside `generationConfig`, matching the Gemini API schema.
     pub fn setup(model: &str, config: LiveConfig) -> Self {
-        let system_instruction = config.system_instruction.as_ref().map(|text| {
-            SystemInstruction {
-                parts: vec![SystemInstructionPart {
-                    text: text.clone(),
-                }],
-            }
-        });
+        let system_instruction = config
+            .system_instruction
+            .as_ref()
+            .map(|text| SystemInstruction {
+                parts: vec![SystemInstructionPart { text: text.clone() }],
+            });
         let realtime_input_config = config.realtime_input_config.clone();
         let input_audio_transcription = config.input_audio_transcription.clone();
         let output_audio_transcription = config.output_audio_transcription.clone();
@@ -163,9 +162,7 @@ impl BidiGenerateContentClientContent {
         Self {
             turns: vec![ContentTurn {
                 role: Some("user".to_string()),
-                parts: vec![ContentPart::Text {
-                    text: text.into(),
-                }],
+                parts: vec![ContentPart::Text { text: text.into() }],
             }],
             turn_complete: Some(true),
         }
@@ -693,4 +690,3 @@ mod tests {
         assert!(!msg.is_turn_complete());
     }
 }
-

@@ -95,13 +95,10 @@ impl Cost {
     ///
     /// Cost in USD as a floating-point value.
     pub fn calculate_usd(&self, model: GeminiModel) -> f64 {
-        let input_cost =
-            self.input_tokens as f64 * model.input_cost_per_million() / 1_000_000.0;
-        let output_cost =
-            self.output_tokens as f64 * model.output_cost_per_million() / 1_000_000.0;
+        let input_cost = self.input_tokens as f64 * model.input_cost_per_million() / 1_000_000.0;
+        let output_cost = self.output_tokens as f64 * model.output_cost_per_million() / 1_000_000.0;
         // Image tokens are charged at input rate
-        let image_cost =
-            self.image_tokens as f64 * model.input_cost_per_million() / 1_000_000.0;
+        let image_cost = self.image_tokens as f64 * model.input_cost_per_million() / 1_000_000.0;
 
         input_cost + output_cost + image_cost
     }
@@ -231,7 +228,8 @@ impl CostTracker {
 
     /// Get the cost limit in USD, if set.
     pub fn limit(&self) -> Option<f64> {
-        self.cost_limit_micros.map(|micros| micros as f64 / 1_000_000.0)
+        self.cost_limit_micros
+            .map(|micros| micros as f64 / 1_000_000.0)
     }
 
     /// Add a cost to the tracker.
@@ -240,9 +238,12 @@ impl CostTracker {
     ///
     /// * `cost` - The cost to add
     pub fn add(&self, cost: &Cost) {
-        self.input_tokens.fetch_add(cost.input_tokens, Ordering::Relaxed);
-        self.output_tokens.fetch_add(cost.output_tokens, Ordering::Relaxed);
-        self.image_tokens.fetch_add(cost.image_tokens, Ordering::Relaxed);
+        self.input_tokens
+            .fetch_add(cost.input_tokens, Ordering::Relaxed);
+        self.output_tokens
+            .fetch_add(cost.output_tokens, Ordering::Relaxed);
+        self.image_tokens
+            .fetch_add(cost.image_tokens, Ordering::Relaxed);
         self.request_count.fetch_add(1, Ordering::Relaxed);
 
         debug!(

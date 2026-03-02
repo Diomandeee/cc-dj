@@ -116,7 +116,9 @@ impl GeminiClient {
             .timeout(config.timeout)
             .default_headers(headers)
             .build()
-            .map_err(|e| GeminiError::config_error(format!("Failed to create HTTP client: {}", e)))?;
+            .map_err(|e| {
+                GeminiError::config_error(format!("Failed to create HTTP client: {}", e))
+            })?;
 
         let rate_limiter = RateLimiter::new(config.rate_limit.clone());
 
@@ -286,11 +288,7 @@ impl GeminiClient {
         for attempt in 0..=self.config.retry.max_retries {
             if attempt > 0 {
                 let delay = self.config.retry.delay_for_attempt(attempt - 1);
-                debug!(
-                    attempt,
-                    delay_ms = delay.as_millis(),
-                    "Retrying request"
-                );
+                debug!(attempt, delay_ms = delay.as_millis(), "Retrying request");
                 tokio::time::sleep(delay).await;
             }
 
@@ -323,9 +321,7 @@ impl GeminiClient {
             }
         }
 
-        Err(last_error.unwrap_or_else(|| {
-            GeminiError::internal("Retry loop exited without result")
-        }))
+        Err(last_error.unwrap_or_else(|| GeminiError::internal("Retry loop exited without result")))
     }
 
     /// Execute a single request without retry.
@@ -341,12 +337,7 @@ impl GeminiClient {
 
         trace!(url = %self.config.generate_content_endpoint(), "Sending request");
 
-        let response = self
-            .http_client
-            .post(&url)
-            .json(request)
-            .send()
-            .await?;
+        let response = self.http_client.post(&url).json(request).send().await?;
 
         let status = response.status();
         let body = response.text().await?;
@@ -395,10 +386,7 @@ impl GeminiClient {
         if let Some(limit) = tracker.limit() {
             let current = tracker.total_usd();
             if current >= limit {
-                return Err(GeminiError::CostLimitExceeded {
-                    current,
-                    limit,
-                });
+                return Err(GeminiError::CostLimitExceeded { current, limit });
             }
 
             // Estimate cost of this request
@@ -560,8 +548,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_cost_limit_check() {
-        let config = GeminiConfig::new("test-api-key-that-is-long-enough")
-            .with_max_cost(0.0001); // Very low limit
+        let config = GeminiConfig::new("test-api-key-that-is-long-enough").with_max_cost(0.0001); // Very low limit
 
         let client = GeminiClient::new(config).unwrap();
 

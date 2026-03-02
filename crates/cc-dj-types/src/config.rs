@@ -420,4 +420,3 @@ dj:
         assert_eq!(safety.eq_max_db_per_beat, 6.0);
     }
 }
-

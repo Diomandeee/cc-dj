@@ -139,7 +139,9 @@ impl LiveError {
         match self {
             Self::RateLimitExceeded { retry_after } => *retry_after,
             Self::GoAway { time_left } => Some(*time_left),
-            Self::ConnectionFailed { retryable: true, .. } => Some(Duration::from_secs(1)),
+            Self::ConnectionFailed {
+                retryable: true, ..
+            } => Some(Duration::from_secs(1)),
             _ => None,
         }
     }
@@ -198,4 +200,3 @@ mod tests {
         assert!(other.is_retryable());
     }
 }
-

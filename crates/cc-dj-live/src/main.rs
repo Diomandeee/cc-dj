@@ -56,26 +56,22 @@ async fn main() -> Result<()> {
         .init();
 
     // Load config
-    let mut config =
-        DJConfig::from_file(&args.config).context("Failed to load DJ config")?;
+    let mut config = DJConfig::from_file(&args.config).context("Failed to load DJ config")?;
 
     if let Some(ref sw) = args.software {
         config.software = sw.clone();
     }
 
     info!("Software: {}", config.software);
-    info!(
-        "Tiers enabled: {:?}",
-        config.tiers_enabled
-    );
+    info!("Tiers enabled: {:?}", config.tiers_enabled);
 
     // Load commands YAML
     let commands_yaml =
         std::fs::read_to_string(&args.commands).context("Failed to read commands file")?;
 
     // Read API key
-    let api_key = std::env::var("GEMINI_API_KEY")
-        .context("GEMINI_API_KEY environment variable not set")?;
+    let api_key =
+        std::env::var("GEMINI_API_KEY").context("GEMINI_API_KEY environment variable not set")?;
 
     // Build DeckController
     let deck = Arc::new(Mutex::new(DeckController::new(config.clone())));
@@ -111,7 +107,10 @@ async fn main() -> Result<()> {
     });
 
     // Start voice pipeline
-    voice.start().await.context("Failed to start voice controller")?;
+    voice
+        .start()
+        .await
+        .context("Failed to start voice controller")?;
 
     info!("cc-dj running. Speak commands. Ctrl+C to stop.");
 
@@ -119,7 +118,10 @@ async fn main() -> Result<()> {
     tokio::signal::ctrl_c().await?;
 
     info!("Shutting down...");
-    voice.stop().await.context("Failed to stop voice controller")?;
+    voice
+        .stop()
+        .await
+        .context("Failed to stop voice controller")?;
 
     Ok(())
 }

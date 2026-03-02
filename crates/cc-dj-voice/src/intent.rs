@@ -10,6 +10,7 @@ use std::sync::Arc;
 /// including synonym resolution and context-aware disambiguation.
 pub struct IntentProcessor {
     /// DJ configuration.
+    #[allow(dead_code)]
     config: Arc<DJConfig>,
     /// Command catalog.
     catalog: CommandCatalog,
@@ -43,9 +44,11 @@ impl IntentProcessor {
             tracing::debug!("Custom mapping: {} -> {}", text_lower, action_name);
 
             // Look up the command by action name in the catalog
-            if let Some(cmd) = self.catalog.iter().find(|c| {
-                c.id == *action_name || c.canonical.eq_ignore_ascii_case(action_name)
-            }) {
+            if let Some(cmd) = self
+                .catalog
+                .iter()
+                .find(|c| c.id == *action_name || c.canonical.eq_ignore_ascii_case(action_name))
+            {
                 return vec![cmd.clone()];
             }
 
@@ -72,7 +75,8 @@ impl IntentProcessor {
 
     /// Adds a custom command mapping.
     pub fn add_mapping(&mut self, phrase: impl Into<String>, action: impl Into<String>) {
-        self.custom_map.insert(phrase.into().to_lowercase(), action.into());
+        self.custom_map
+            .insert(phrase.into().to_lowercase(), action.into());
     }
 
     /// Returns the number of custom mappings.
@@ -100,4 +104,3 @@ mod tests {
         assert_eq!(processor.custom_mapping_count(), 1);
     }
 }
-

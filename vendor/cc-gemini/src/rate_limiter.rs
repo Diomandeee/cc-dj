@@ -330,8 +330,7 @@ impl RateLimiter {
                     if elapsed > Duration::from_millis(100) {
                         debug!(
                             waited_ms = elapsed.as_millis(),
-                            estimated_tokens,
-                            "Rate limit wait completed"
+                            estimated_tokens, "Rate limit wait completed"
                         );
                     }
 
@@ -680,11 +679,7 @@ mod tests {
 
         // Should be able to burst to 15 requests (10 * 1.5)
         for i in 0..15 {
-            assert!(
-                limiter.try_acquire(10).await,
-                "Failed at request {}",
-                i + 1
-            );
+            assert!(limiter.try_acquire(10).await, "Failed at request {}", i + 1);
         }
 
         // Should fail now

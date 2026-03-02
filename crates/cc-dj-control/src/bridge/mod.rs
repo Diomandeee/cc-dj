@@ -39,4 +39,3 @@ pub fn create_bridge(config: &DJConfig) -> Box<dyn DJBridge> {
         _ => Box::new(RekordboxBridge::new(config.rekordbox.clone())),
     }
 }
-

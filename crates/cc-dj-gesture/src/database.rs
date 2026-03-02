@@ -56,7 +56,10 @@ impl GestureDatabase {
 
     /// Returns the number of samples for a gesture type.
     pub fn sample_count_for(&self, gesture_type: GestureType) -> usize {
-        self.gestures.get(&gesture_type).map(|v| v.len()).unwrap_or(0)
+        self.gestures
+            .get(&gesture_type)
+            .map(|v| v.len())
+            .unwrap_or(0)
     }
 
     /// Saves the database to storage.
@@ -98,14 +101,14 @@ mod tests {
     #[test]
     fn test_database_add_get() {
         let mut db = GestureDatabase::new();
-        
+
         let gesture = RecordedGesture::new(
             GestureType::SwipeLeft,
             vec![MotionDataPoint::new(0, [0.0; 3], [0.0; 3])],
         );
-        
+
         db.add(gesture);
-        
+
         assert_eq!(db.sample_count(), 1);
         assert_eq!(db.sample_count_for(GestureType::SwipeLeft), 1);
         assert_eq!(db.get(GestureType::SwipeLeft).len(), 1);
@@ -114,12 +117,11 @@ mod tests {
     #[test]
     fn test_database_gesture_types() {
         let mut db = GestureDatabase::new();
-        
+
         db.add(RecordedGesture::new(GestureType::SwipeLeft, vec![]));
         db.add(RecordedGesture::new(GestureType::Circle, vec![]));
-        
+
         let types = db.gesture_types();
         assert_eq!(types.len(), 2);
     }
 }
-

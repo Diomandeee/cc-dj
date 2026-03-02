@@ -17,8 +17,9 @@ pub mod mixer;
 pub mod strategy;
 pub mod transition;
 
-pub use analyzer::{AnalysisSource, TrackAnalysis, TrackAnalyzer, SectionMarker, SectionType, MixPoints};
+pub use analyzer::{
+    AnalysisSource, MixPoints, SectionMarker, SectionType, TrackAnalysis, TrackAnalyzer,
+};
 pub use mixer::AutoMixer;
 pub use strategy::MixStrategy;
 pub use transition::TransitionAdvisor;
-

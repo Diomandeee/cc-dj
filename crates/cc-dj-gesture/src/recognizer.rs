@@ -1,7 +1,7 @@
 //! Gesture recognizer for real-time gesture detection.
 
 use crate::database::GestureDatabase;
-use crate::types::{GestureType, MotionDataPoint, RecordedGesture};
+use crate::types::{GestureType, MotionDataPoint};
 use std::collections::VecDeque;
 
 /// Configuration for gesture recognition.
@@ -69,7 +69,7 @@ impl GestureRecognizer {
     pub fn process(&mut self, data: MotionDataPoint) -> Option<RecognitionResult> {
         // Add to buffer
         self.buffer.push_back(data);
-        
+
         // Maintain buffer size
         while self.buffer.len() > self.config.buffer_size {
             self.buffer.pop_front();
@@ -87,7 +87,7 @@ impl GestureRecognizer {
     /// Attempts to recognize a gesture from the current buffer.
     fn recognize(&mut self) -> Option<RecognitionResult> {
         let buffer_data: Vec<_> = self.buffer.iter().cloned().collect();
-        
+
         let mut best_match: Option<(GestureType, f32)> = None;
 
         // Compare against all gesture types in database
@@ -105,10 +105,10 @@ impl GestureRecognizer {
             }
             let avg_similarity = total_similarity / samples.len() as f32;
 
-            if avg_similarity >= self.config.confidence_threshold {
-                if best_match.map_or(true, |(_, s)| avg_similarity > s) {
-                    best_match = Some((gesture_type, avg_similarity));
-                }
+            if avg_similarity >= self.config.confidence_threshold
+                && best_match.is_none_or(|(_, s)| avg_similarity > s)
+            {
+                best_match = Some((gesture_type, avg_similarity));
             }
         }
 
@@ -123,10 +123,10 @@ impl GestureRecognizer {
             };
 
             self.last_recognition = Some(result.clone());
-            
+
             // Clear buffer after recognition
             self.buffer.clear();
-            
+
             result
         })
     }
@@ -148,7 +148,7 @@ impl GestureRecognizer {
         }
 
         let avg_distance = total_distance / len as f32;
-        
+
         // Convert distance to similarity (inverse relationship)
         1.0 / (1.0 + avg_distance)
     }
@@ -185,12 +185,11 @@ mod tests {
     fn test_recognizer_buffer() {
         let db = GestureDatabase::new();
         let mut recognizer = GestureRecognizer::with_database(db);
-        
+
         for i in 0..50 {
             recognizer.process(MotionDataPoint::new(i * 10, [0.0; 3], [0.0; 3]));
         }
-        
+
         assert_eq!(recognizer.buffer_len(), 50);
     }
 }
-

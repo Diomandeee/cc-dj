@@ -198,8 +198,8 @@ pub use rate_limiter::RateLimiter;
 
 // Batch API re-exports
 pub use batch::{
-    BatchClient, BatchConfig, BatchJob, BatchJobState, BatchRequest, BatchResponse, BatchResults,
-    BatchStats, build_jsonl,
+    build_jsonl, BatchClient, BatchConfig, BatchJob, BatchJobState, BatchRequest, BatchResponse,
+    BatchResults, BatchStats,
 };
 
 // Type re-exports from types module for convenience

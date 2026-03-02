@@ -15,10 +15,13 @@ use crate::Result;
 ///
 /// Tiers represent increasing levels of DJ control complexity.
 /// Start with basic transport and progress to advanced mixing.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[derive(
+    Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
+)]
 #[repr(u8)]
 pub enum Tier {
     /// Transport controls: PLAY, SYNC, PITCH_NUDGE.
+    #[default]
     Transport = 0,
     /// Looping: SET_LOOP, LOOP_DOUBLE/HALVE, RELOOP/EXIT.
     Looping = 1,
@@ -73,12 +76,6 @@ impl Tier {
             Tier::Library,
             Tier::Blend,
         ]
-    }
-}
-
-impl Default for Tier {
-    fn default() -> Self {
-        Self::Transport
     }
 }
 
@@ -339,10 +336,7 @@ impl ActionSpace {
 
     /// Gets available actions for a specific tier.
     pub fn actions_in_tier(&self, tier: Tier) -> Vec<&Action> {
-        self.actions
-            .values()
-            .filter(|a| a.tier == tier)
-            .collect()
+        self.actions.values().filter(|a| a.tier == tier).collect()
     }
 
     /// Checks if an action can be executed.

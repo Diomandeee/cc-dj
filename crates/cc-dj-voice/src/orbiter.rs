@@ -28,7 +28,7 @@ impl StabilityTracker {
 
     /// Records a similarity score for a command.
     fn record(&mut self, cmd_id: &str, similarity: f32) {
-        let history = self.history.entry(cmd_id.to_string()).or_insert_with(Vec::new);
+        let history = self.history.entry(cmd_id.to_string()).or_default();
         history.push(similarity);
         if history.len() > self.max_history {
             history.remove(0);
@@ -47,9 +47,10 @@ impl StabilityTracker {
                 }
                 // Stable if we have 3+ consecutive matches with high confidence
                 self.consecutive_count >= 3
-                    && self.history.get(id).map_or(false, |h| {
-                        h.last().map_or(false, |&s| s >= stability_threshold)
-                    })
+                    && self
+                        .history
+                        .get(id)
+                        .is_some_and(|h| h.last().is_some_and(|&s| s >= stability_threshold))
             }
             None => {
                 self.consecutive_count = 0;
@@ -170,10 +171,9 @@ impl CommandOrbiter {
             .filter(|(_, sim)| *sim >= self.stability_threshold)
             .map(|(id, _)| id);
 
-        let is_stable = self.stability_tracker.update_match(
-            matched_id.as_deref(),
-            self.stability_threshold,
-        );
+        let is_stable = self
+            .stability_tracker
+            .update_match(matched_id.as_deref(), self.stability_threshold);
 
         if is_stable {
             if let Some(ref id) = matched_id {
@@ -250,4 +250,3 @@ commands:
         assert_eq!(orbiter.embedding_count(), 2);
     }
 }
-

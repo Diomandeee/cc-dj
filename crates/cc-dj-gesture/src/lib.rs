@@ -21,7 +21,6 @@ pub mod types;
 
 pub use database::GestureDatabase;
 pub use dj_recognizer::{DJGestureRecognizer, GestureCommandMapping};
-pub use recognizer::{GestureRecognizer, RecognizerConfig, RecognitionResult};
+pub use recognizer::{GestureRecognizer, RecognitionResult, RecognizerConfig};
 pub use trainer::{GestureTrainer, TrainerState};
 pub use types::{GestureType, MotionDataPoint, RecordedGesture};
-

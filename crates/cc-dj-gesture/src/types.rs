@@ -1,7 +1,6 @@
 //! Gesture types and motion data structures.
 
 use serde::{Deserialize, Serialize};
-use std::time::Instant;
 
 /// Types of gestures that can be recognized.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -212,4 +211,3 @@ mod tests {
         assert!((point.acceleration_magnitude() - 9.8).abs() < 0.01);
     }
 }
-

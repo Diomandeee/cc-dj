@@ -97,9 +97,9 @@ impl GestureTrainer {
             return Err(cc_dj_types::DJError::gesture("Not recording"));
         }
 
-        let gesture_type = self.current_gesture.ok_or_else(|| {
-            cc_dj_types::DJError::gesture("No gesture type set")
-        })?;
+        let gesture_type = self
+            .current_gesture
+            .ok_or_else(|| cc_dj_types::DJError::gesture("No gesture type set"))?;
 
         // Check min duration
         if let Some(start) = self.recording_start {
@@ -164,16 +164,19 @@ mod tests {
 
     #[test]
     fn test_trainer_lifecycle() {
-        let mut trainer = GestureTrainer::new()
-            .with_min_duration(0);
+        let mut trainer = GestureTrainer::new().with_min_duration(0);
 
         assert_eq!(trainer.state(), TrainerState::Idle);
 
         trainer.start_recording(GestureType::SwipeLeft).unwrap();
         assert_eq!(trainer.state(), TrainerState::Recording);
 
-        trainer.add_data(MotionDataPoint::new(0, [0.0; 3], [0.0; 3])).unwrap();
-        trainer.add_data(MotionDataPoint::new(100, [1.0; 3], [0.0; 3])).unwrap();
+        trainer
+            .add_data(MotionDataPoint::new(0, [0.0; 3], [0.0; 3]))
+            .unwrap();
+        trainer
+            .add_data(MotionDataPoint::new(100, [1.0; 3], [0.0; 3]))
+            .unwrap();
 
         let gesture = trainer.stop_recording().unwrap();
         assert_eq!(gesture.gesture_type, GestureType::SwipeLeft);
@@ -192,4 +195,3 @@ mod tests {
         assert_eq!(trainer.recorded_points(), 0);
     }
 }
-

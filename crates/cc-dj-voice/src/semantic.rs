@@ -32,10 +32,8 @@ impl SemanticMatcher {
 
         for (phrase, stored) in &self.embeddings {
             let similarity = cosine_similarity(embedding, stored);
-            if similarity >= threshold {
-                if best_match.map_or(true, |(_, s)| similarity > s) {
-                    best_match = Some((phrase.as_str(), similarity));
-                }
+            if similarity >= threshold && best_match.is_none_or(|(_, s)| similarity > s) {
+                best_match = Some((phrase.as_str(), similarity));
             }
         }
 
@@ -96,4 +94,3 @@ mod tests {
         assert_eq!(result.unwrap().0, "play");
     }
 }
-

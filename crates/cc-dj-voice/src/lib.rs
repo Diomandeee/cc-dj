@@ -20,4 +20,3 @@ pub mod semantic;
 pub use controller::VoiceController;
 pub use intent::IntentProcessor;
 pub use orbiter::CommandOrbiter;
-

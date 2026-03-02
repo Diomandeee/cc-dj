@@ -246,7 +246,7 @@ impl BatchRequest {
     pub fn text(key: impl Into<String>, prompt: impl Into<String>) -> Self {
         Self {
             key: key.into(),
-            request: GenerateContentRequest::text(&prompt.into()),
+            request: GenerateContentRequest::text(prompt.into()),
             metadata: HashMap::new(),
         }
     }
@@ -272,7 +272,7 @@ impl BatchRequest {
             "key": self.key,
             "request": self.request,
         });
-        serde_json::to_string(&wrapper).map_err(|e| GeminiError::JsonError(e))
+        serde_json::to_string(&wrapper).map_err(GeminiError::JsonError)
     }
 }
 
@@ -441,7 +441,9 @@ impl BatchClient {
             .timeout(config.timeout)
             .default_headers(headers)
             .build()
-            .map_err(|e| GeminiError::config_error(format!("Failed to create HTTP client: {}", e)))?;
+            .map_err(|e| {
+                GeminiError::config_error(format!("Failed to create HTTP client: {}", e))
+            })?;
 
         let mut cost_tracker = CostTracker::new(config.model);
         if let Some(max_cost) = config.max_cost {
@@ -542,11 +544,7 @@ impl BatchClient {
     /// # Returns
     ///
     /// The created batch job with its unique name.
-    pub async fn create_from_file(
-        &self,
-        display_name: &str,
-        file_name: &str,
-    ) -> Result<BatchJob> {
+    pub async fn create_from_file(&self, display_name: &str, file_name: &str) -> Result<BatchJob> {
         // Per Gemini Batch API spec for file-based input:
         // { "batch": { "display_name": "...", "input_config": { "gcs_uri": "..." } } }
         let payload = serde_json::json!({
@@ -585,11 +583,7 @@ impl BatchClient {
     /// # Returns
     ///
     /// The file URI to use with `create_from_file`.
-    pub async fn upload_jsonl(
-        &self,
-        content: &[u8],
-        display_name: Option<&str>,
-    ) -> Result<String> {
+    pub async fn upload_jsonl(&self, content: &[u8], display_name: Option<&str>) -> Result<String> {
         let display_name = display_name.unwrap_or("batch_input.jsonl");
         let num_bytes = content.len();
 
@@ -1055,4 +1049,3 @@ mod tests {
         assert!(lines[1].contains("req-2"));
     }
 }
-

@@ -49,9 +49,7 @@ impl Command {
             return true;
         }
 
-        self.synonyms
-            .iter()
-            .any(|s| s.to_lowercase() == text_lower)
+        self.synonyms.iter().any(|s| s.to_lowercase() == text_lower)
     }
 
     /// Returns all trigger phrases (canonical + synonyms).
@@ -63,7 +61,7 @@ impl Command {
 }
 
 /// Command category for grouping related commands.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CommandCategory {
     /// Transport controls (play, pause, cue).
@@ -93,14 +91,9 @@ pub enum CommandCategory {
     /// System/utility commands.
     System,
     /// Unknown category.
+    #[default]
     #[serde(other)]
     Unknown,
-}
-
-impl Default for CommandCategory {
-    fn default() -> Self {
-        Self::Unknown
-    }
 }
 
 /// Target deck for deck-specific commands.
@@ -139,7 +132,7 @@ impl Deck {
 }
 
 /// Type of action performed by a command.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ActionType {
     /// Play/pause toggle.
@@ -173,14 +166,9 @@ pub enum ActionType {
     /// System operation.
     System,
     /// Unknown action type.
+    #[default]
     #[serde(other)]
     Unknown,
-}
-
-impl Default for ActionType {
-    fn default() -> Self {
-        Self::Unknown
-    }
 }
 
 /// Keyboard shortcut or MIDI mapping.

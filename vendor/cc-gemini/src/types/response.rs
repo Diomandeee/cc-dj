@@ -237,9 +237,7 @@ pub struct SafetyRating {
 impl SafetyRating {
     /// Check if this rating indicates the content was blocked.
     pub fn is_blocked(&self) -> bool {
-        self.blocked.unwrap_or(false)
-            || self.probability == "HIGH"
-            || self.probability == "MEDIUM"
+        self.blocked.unwrap_or(false) || self.probability == "HIGH" || self.probability == "MEDIUM"
     }
 
     /// Get a human-readable description of the rating.

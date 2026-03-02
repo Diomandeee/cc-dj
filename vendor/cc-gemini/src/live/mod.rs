@@ -113,8 +113,8 @@ pub use messages::{
     BidiGenerateContentClientContent, BidiGenerateContentRealtimeInput,
     BidiGenerateContentServerContent, BidiGenerateContentToolCall, BidiGenerateContentToolResponse,
     ClientMessage, ContentPart, ContentTurn, FunctionCall, FunctionResponse, GoAway, InlineData,
-    ModelTurn, RealtimeAudio, RealtimeVideo, ServerMessage, SessionResumptionUpdate,
-    Transcription, UsageMetadata,
+    ModelTurn, RealtimeAudio, RealtimeVideo, ServerMessage, SessionResumptionUpdate, Transcription,
+    UsageMetadata,
 };
 pub use session::{
     collect_turn, wait_for_message, ChannelCallbacks, LiveSession, LiveSessionBuilder,
@@ -167,4 +167,3 @@ mod tests {
         assert!(config.automatic_activity_detection.is_some());
     }
 }
-

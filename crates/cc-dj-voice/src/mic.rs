@@ -44,10 +44,7 @@ pub fn start_mic_capture(
     let configs: Vec<_> = supported.collect();
 
     let (sample_rate, channels) = pick_best_config(&configs);
-    info!(
-        "Mic config: {}Hz, {} channel(s)",
-        sample_rate, channels
-    );
+    info!("Mic config: {}Hz, {} channel(s)", sample_rate, channels);
 
     let stream_config = StreamConfig {
         channels,
@@ -85,9 +82,7 @@ fn pick_best_config(configs: &[cpal::SupportedStreamConfigRange]) -> (u32, u16) 
 
     // Second try: stereo at 16 kHz (we'll downmix)
     for cfg in configs {
-        if cfg.min_sample_rate().0 <= PREFERRED_RATE
-            && cfg.max_sample_rate().0 >= PREFERRED_RATE
-        {
+        if cfg.min_sample_rate().0 <= PREFERRED_RATE && cfg.max_sample_rate().0 >= PREFERRED_RATE {
             return (PREFERRED_RATE, cfg.channels());
         }
     }
@@ -129,7 +124,7 @@ fn run_capture_loop(
                 let pcm = f32_to_i16_pcm(data, ch);
                 if !pcm.is_empty() {
                     // Non-blocking send — if the receiver falls behind, drop the chunk.
-                    if let Err(_) = audio_tx.try_send(pcm) {
+                    if audio_tx.try_send(pcm).is_err() {
                         debug!("Audio channel full, dropping chunk");
                     }
                 }

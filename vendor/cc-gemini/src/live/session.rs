@@ -136,9 +136,8 @@ impl LiveSession {
             self.api_key
         );
 
-        let url = Url::parse(&ws_url).map_err(|e| {
-            LiveError::ConfigError(format!("Invalid WebSocket URL: {}", e))
-        })?;
+        let url = Url::parse(&ws_url)
+            .map_err(|e| LiveError::ConfigError(format!("Invalid WebSocket URL: {}", e)))?;
 
         // Update state
         {
@@ -565,4 +564,3 @@ mod tests {
         assert!(received.is_ok());
     }
 }
-

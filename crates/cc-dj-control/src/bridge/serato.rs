@@ -52,8 +52,9 @@ impl SeratoBridge {
             return Ok(());
         }
 
-        let output = MidiOutput::new("cc-dj-control")
-            .map_err(|e| cc_dj_types::DJError::midi(format!("Failed to create MIDI output: {}", e)))?;
+        let output = MidiOutput::new("cc-dj-control").map_err(|e| {
+            cc_dj_types::DJError::midi(format!("Failed to create MIDI output: {}", e))
+        })?;
 
         let ports = output.ports();
         if ports.is_empty() {
@@ -62,9 +63,11 @@ impl SeratoBridge {
         }
 
         // Find Serato MIDI port or use first available
-        let port = ports.iter()
+        let port = ports
+            .iter()
             .find(|p| {
-                output.port_name(p)
+                output
+                    .port_name(p)
                     .map(|n| n.to_lowercase().contains("serato"))
                     .unwrap_or(false)
             })
@@ -73,8 +76,9 @@ impl SeratoBridge {
         let port_name = output.port_name(port).unwrap_or_else(|_| "Unknown".into());
         info!("Connecting to MIDI port: {}", port_name);
 
-        let conn = output.connect(port, "cc-dj-serato")
-            .map_err(|e| cc_dj_types::DJError::midi(format!("Failed to connect to MIDI port: {}", e)))?;
+        let conn = output.connect(port, "cc-dj-serato").map_err(|e| {
+            cc_dj_types::DJError::midi(format!("Failed to connect to MIDI port: {}", e))
+        })?;
 
         *midi_out = Some(conn);
         Ok(())
@@ -105,14 +109,22 @@ impl DJBridge for SeratoBridge {
                     }
                     cc_dj_types::ActionMapping::Sequence { steps } => {
                         for step in steps {
-                            let mods: Vec<&str> = step.modifiers.iter().map(|s| s.as_str()).collect();
+                            let mods: Vec<&str> =
+                                step.modifiers.iter().map(|s| s.as_str()).collect();
                             self.send_key(&step.key, &mods).await?;
                             if step.delay_ms > 0 {
-                                tokio::time::sleep(tokio::time::Duration::from_millis(step.delay_ms as u64)).await;
+                                tokio::time::sleep(tokio::time::Duration::from_millis(
+                                    step.delay_ms as u64,
+                                ))
+                                .await;
                             }
                         }
                     }
-                    cc_dj_types::ActionMapping::Midi { channel, note, velocity } => {
+                    cc_dj_types::ActionMapping::Midi {
+                        channel,
+                        note,
+                        velocity,
+                    } => {
                         self.send_midi(*channel, *note, *velocity).await?;
                     }
                 }
@@ -163,7 +175,10 @@ impl DJBridge for SeratoBridge {
 
     async fn send_key(&self, key: &str, modifiers: &[&str]) -> Result<()> {
         if self.simulation_mode {
-            info!("[SIMULATION] Send key: {} with modifiers: {:?}", key, modifiers);
+            info!(
+                "[SIMULATION] Send key: {} with modifiers: {:?}",
+                key, modifiers
+            );
             return Ok(());
         }
 
@@ -204,11 +219,16 @@ impl DJBridge for SeratoBridge {
             let output = Command::new("osascript")
                 .args(["-e", &script])
                 .output()
-                .map_err(|e| cc_dj_types::DJError::execution(format!("Failed to run osascript: {}", e)))?;
+                .map_err(|e| {
+                    cc_dj_types::DJError::execution(format!("Failed to run osascript: {}", e))
+                })?;
 
             if !output.status.success() {
                 let stderr = String::from_utf8_lossy(&output.stderr);
-                return Err(cc_dj_types::DJError::execution(format!("osascript failed: {}", stderr)));
+                return Err(cc_dj_types::DJError::execution(format!(
+                    "osascript failed: {}",
+                    stderr
+                )));
             }
 
             debug!("Key sent successfully via osascript");
@@ -226,11 +246,17 @@ impl DJBridge for SeratoBridge {
 
     async fn send_midi(&self, channel: u8, note: u8, velocity: u8) -> Result<()> {
         if self.simulation_mode {
-            info!("[SIMULATION] Send MIDI: ch={}, note={}, vel={}", channel, note, velocity);
+            info!(
+                "[SIMULATION] Send MIDI: ch={}, note={}, vel={}",
+                channel, note, velocity
+            );
             return Ok(());
         }
 
-        debug!("Sending MIDI: ch={}, note={}, vel={}", channel, note, velocity);
+        debug!(
+            "Sending MIDI: ch={}, note={}, vel={}",
+            channel, note, velocity
+        );
 
         // Ensure MIDI connection is established
         self.ensure_midi_connection()?;
@@ -243,11 +269,14 @@ impl DJBridge for SeratoBridge {
         // Send the MIDI message
         let mut midi_out = self.midi_out.lock().unwrap();
         if let Some(ref mut conn) = *midi_out {
-            conn.send(&message)
-                .map_err(|e| cc_dj_types::DJError::midi(format!("Failed to send MIDI message: {}", e)))?;
+            conn.send(&message).map_err(|e| {
+                cc_dj_types::DJError::midi(format!("Failed to send MIDI message: {}", e))
+            })?;
             debug!("MIDI message sent successfully");
         } else {
-            return Err(cc_dj_types::DJError::midi("MIDI connection not established"));
+            return Err(cc_dj_types::DJError::midi(
+                "MIDI connection not established",
+            ));
         }
 
         Ok(())

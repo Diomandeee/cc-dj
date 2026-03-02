@@ -153,4 +153,3 @@ mod tests {
         assert_eq!(lounge.transition_duration_beats, 64.0);
     }
 }
-

@@ -1,9 +1,7 @@
 //! Voice controller - main orchestrator for voice control.
 
 use cc_dj_types::{Command, DJConfig, DJError, Result};
-use cc_gemini::live::{
-    ChannelCallbacks, LiveConfig, LiveSession, SessionState, VadConfigBuilder,
-};
+use cc_gemini::live::{ChannelCallbacks, LiveConfig, LiveSession, SessionState, VadConfigBuilder};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, RwLock};
 use tracing::{debug, info, warn};
@@ -22,6 +20,7 @@ pub struct VoiceController {
     /// Gemini API key.
     api_key: String,
     /// DJ configuration.
+    #[allow(dead_code)]
     config: Arc<DJConfig>,
     /// Command orbiter for retrieval.
     orbiter: CommandOrbiter,
@@ -86,8 +85,7 @@ impl VoiceController {
             .silence_duration(800)
             .build();
 
-        let mut live_config = LiveConfig::audio()
-            .with_input_transcription();
+        let mut live_config = LiveConfig::audio().with_input_transcription();
         live_config.realtime_input_config = Some(vad);
 
         // Build & connect the Gemini Live session
@@ -225,11 +223,7 @@ impl VoiceController {
     pub fn process_text(&self, text: &str) -> Vec<Command> {
         debug!("Processing text: {}", text);
 
-        let commands = self
-            .intent_processor
-            .read()
-            .unwrap()
-            .process(text);
+        let commands = self.intent_processor.read().unwrap().process(text);
 
         // Invoke callback for each recognized command
         if let Some(ref callback) = self.command_callback {

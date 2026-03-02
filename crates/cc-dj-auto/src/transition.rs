@@ -135,11 +135,7 @@ impl TransitionAdvisor {
     }
 
     /// Checks if it's time to start a transition.
-    pub fn should_transition(
-        &self,
-        outgoing_state: &DeckState,
-        threshold_secs: f64,
-    ) -> bool {
+    pub fn should_transition(&self, outgoing_state: &DeckState, threshold_secs: f64) -> bool {
         outgoing_state.remaining_secs() <= threshold_secs
     }
 }
@@ -187,4 +183,3 @@ mod tests {
         assert!(!advisor.should_transition(&state, 5.0));
     }
 }
-

@@ -1,10 +1,7 @@
 //! Auto mixer for automated DJ mixing.
 
 use cc_dj_types::{DeckState, Result, SessionState};
-use cc_dj_control::DeckController;
-use std::sync::Arc;
-use tokio::sync::RwLock;
-use tracing::{debug, info, warn};
+use tracing::{debug, info};
 
 use crate::analyzer::{TrackAnalysis, TrackAnalyzer};
 use crate::strategy::MixStrategy;
@@ -116,7 +113,10 @@ impl AutoMixer {
     }
 
     /// Updates the mixer with current session state.
-    pub async fn update(&mut self, session: &SessionState) -> Result<Option<TransitionRecommendation>> {
+    pub async fn update(
+        &mut self,
+        session: &SessionState,
+    ) -> Result<Option<TransitionRecommendation>> {
         match self.state {
             AutoMixerState::Idle | AutoMixerState::Paused => return Ok(None),
             AutoMixerState::Playing => {
@@ -131,10 +131,9 @@ impl AutoMixer {
             AutoMixerState::Preparing => {
                 // Generate recommendation if we don't have one
                 if self.current_recommendation.is_none() {
-                    if let (Some(outgoing), Some(incoming)) = (
-                        session.decks.first(),
-                        session.decks.get(1),
-                    ) {
+                    if let (Some(outgoing), Some(incoming)) =
+                        (session.decks.first(), session.decks.get(1))
+                    {
                         let outgoing_analysis = self.get_or_analyze_track(outgoing).await?;
                         let incoming_analysis = self.get_or_analyze_track(incoming).await?;
 
@@ -164,7 +163,7 @@ impl AutoMixer {
             AutoMixerState::Transitioning => {
                 // Monitor transition progress
                 // When complete, reset to Playing
-                if let Some(rec) = &self.current_recommendation {
+                if let Some(_rec) = &self.current_recommendation {
                     if let Some(deck) = session.decks.first() {
                         let beats_remaining = deck.remaining_secs() * deck.effective_bpm() / 60.0;
                         if beats_remaining <= 0.0 {
@@ -217,18 +216,18 @@ mod tests {
     #[test]
     fn test_auto_mixer_lifecycle() {
         let mut mixer = AutoMixer::default_strategy();
-        
+
         assert_eq!(mixer.state(), AutoMixerState::Idle);
-        
+
         mixer.start();
         assert_eq!(mixer.state(), AutoMixerState::Playing);
-        
+
         mixer.pause();
         assert_eq!(mixer.state(), AutoMixerState::Paused);
-        
+
         mixer.resume();
         assert_eq!(mixer.state(), AutoMixerState::Playing);
-        
+
         mixer.stop();
         assert_eq!(mixer.state(), AutoMixerState::Idle);
     }
@@ -236,14 +235,13 @@ mod tests {
     #[test]
     fn test_queue_management() {
         let mut mixer = AutoMixer::default_strategy();
-        
+
         mixer.add_to_queue("/path/to/track1.mp3");
         mixer.add_to_queue("/path/to/track2.mp3");
-        
+
         assert_eq!(mixer.queue().len(), 2);
-        
+
         mixer.clear_queue();
         assert!(mixer.queue().is_empty());
     }
 }
-

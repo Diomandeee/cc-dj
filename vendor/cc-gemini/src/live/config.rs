@@ -20,7 +20,7 @@ pub enum ResponseModality {
 }
 
 /// Available voices for audio output.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum Voice {
     /// Aoede voice.
     Aoede,
@@ -29,17 +29,12 @@ pub enum Voice {
     /// Fenrir voice.
     Fenrir,
     /// Kore voice (default).
+    #[default]
     Kore,
     /// Puck voice.
     Puck,
     /// Custom voice name.
     Custom(String),
-}
-
-impl Default for Voice {
-    fn default() -> Self {
-        Self::Kore
-    }
 }
 
 impl Voice {
@@ -139,16 +134,11 @@ impl Default for ContextWindowCompressionConfig {
 /// Session resumption configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[derive(Default)]
 pub struct SessionResumptionConfig {
     /// Handle from a previous session to resume.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub handle: Option<String>,
-}
-
-impl Default for SessionResumptionConfig {
-    fn default() -> Self {
-        Self { handle: None }
-    }
 }
 
 /// Thinking configuration for native audio models.
@@ -367,16 +357,16 @@ impl LiveModel {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Flash25NativeAudio => "models/gemini-2.5-flash-native-audio-latest",
-            Self::Flash25NativeAudioDec2025 => "models/gemini-2.5-flash-native-audio-preview-12-2025",
+            Self::Flash25NativeAudioDec2025 => {
+                "models/gemini-2.5-flash-native-audio-preview-12-2025"
+            }
             Self::Custom(s) => s,
         }
     }
 
     /// Returns the WebSocket endpoint for this model.
     pub fn ws_endpoint(&self) -> String {
-        format!(
-            "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key={{}}",
-        )
+        "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key={}".to_string()
     }
 
     /// Returns the maximum session duration for audio-only.
@@ -454,4 +444,3 @@ mod tests {
         assert_eq!(Voice::Custom("MyVoice".to_string()).as_str(), "MyVoice");
     }
 }
-

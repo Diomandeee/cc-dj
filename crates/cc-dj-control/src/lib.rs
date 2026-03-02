@@ -21,4 +21,3 @@ pub use bridge::{DJBridge, RekordboxBridge, SeratoBridge};
 pub use deck::DeckController;
 pub use executor::ChainExecutor;
 pub use scheduler::ActionScheduler;
-

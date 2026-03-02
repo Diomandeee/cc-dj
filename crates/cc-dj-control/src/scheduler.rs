@@ -33,7 +33,7 @@ impl ActionScheduler {
     /// Schedules an action for the next beat.
     pub fn schedule(&mut self, action: Action, current_beat: f64) {
         let target_beat = current_beat.ceil();
-        
+
         tracing::debug!(
             "Scheduling action {} for beat {} (current: {})",
             action.name,
@@ -61,12 +61,12 @@ impl ActionScheduler {
         if let Some(scheduled) = self.queue.front() {
             let beat_diff = current_beat - scheduled.target_beat;
             let phase_deg = beat_diff.fract() * 360.0;
-            
+
             // Check if we're within the quantization window
             if beat_diff >= 0.0 && phase_deg.abs() <= self.quant_window_deg {
                 return self.queue.pop_front().map(|s| s.action);
             }
-            
+
             // Remove stale actions (missed their window)
             if beat_diff > 1.0 {
                 tracing::warn!(
@@ -111,10 +111,10 @@ mod tests {
     #[test]
     fn test_scheduler() {
         let mut scheduler = ActionScheduler::new(15.0);
-        
+
         let action = Action::new("PLAY_A", Tier::Transport);
         scheduler.schedule(action.clone(), 3.5);
-        
+
         assert_eq!(scheduler.len(), 1);
         assert_eq!(scheduler.next_beat(), Some(4.0));
     }
@@ -122,20 +122,19 @@ mod tests {
     #[test]
     fn test_poll() {
         let mut scheduler = ActionScheduler::new(15.0);
-        
+
         let action = Action::new("PLAY_A", Tier::Transport);
         scheduler.schedule_at(action.clone(), 4.0);
-        
+
         // Not ready yet
         assert!(scheduler.poll(3.5).is_none());
-        
+
         // Ready now
         let polled = scheduler.poll(4.0);
         assert!(polled.is_some());
         assert_eq!(polled.unwrap().name, "PLAY_A");
-        
+
         // Queue should be empty
         assert!(scheduler.is_empty());
     }
 }
-

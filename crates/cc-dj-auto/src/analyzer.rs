@@ -282,7 +282,7 @@ impl TrackAnalyzer {
             }
             let num: u8 = key[..key.len() - 1].parse().ok()?;
             let mode = key.chars().last()?;
-            if num < 1 || num > 12 || (mode != 'A' && mode != 'B') {
+            if !(1..=12).contains(&num) || (mode != 'A' && mode != 'B') {
                 return None;
             }
             Some((num, mode))
@@ -327,7 +327,7 @@ impl TrackAnalyzer {
             }
             let num: u8 = key[..key.len() - 1].parse().ok()?;
             let mode = key.chars().last()?;
-            if num < 1 || num > 12 || (mode != 'A' && mode != 'B') {
+            if !(1..=12).contains(&num) || (mode != 'A' && mode != 'B') {
                 return None;
             }
             Some((num, mode))
@@ -450,4 +450,3 @@ mod tests {
         assert_eq!(analysis.source, AnalysisSource::Placeholder);
     }
 }
-

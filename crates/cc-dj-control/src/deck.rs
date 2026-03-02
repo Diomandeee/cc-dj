@@ -1,6 +1,6 @@
 //! Deck controller for high-level deck operations.
 
-use cc_dj_types::{Action, ActionSpace, DeckState, DJConfig, Result, Tier};
+use cc_dj_types::{ActionSpace, DJConfig, DeckState, Result, Tier};
 use std::sync::Arc;
 use tokio::sync::RwLock;
 use tracing::{debug, info};
@@ -11,6 +11,7 @@ use crate::scheduler::ActionScheduler;
 /// High-level controller for a DJ deck.
 pub struct DeckController {
     /// DJ configuration.
+    #[allow(dead_code)]
     config: Arc<DJConfig>,
     /// Action space.
     action_space: ActionSpace,
@@ -33,7 +34,7 @@ impl DeckController {
             .iter()
             .filter_map(|&n| Tier::from_number(n))
             .collect();
-        
+
         let action_space = ActionSpace::new(tiers, config.safety.clone());
         let bridge = create_bridge(&config);
         let scheduler = ActionScheduler::new(config.quant_window_deg);
@@ -58,10 +59,13 @@ impl DeckController {
         drop(states);
 
         // Check if action is allowed
-        self.action_space.can_execute(action_name, &deck_state, self.current_beat)?;
+        self.action_space
+            .can_execute(action_name, &deck_state, self.current_beat)?;
 
         // Get the action
-        let action = self.action_space.get(action_name)
+        let action = self
+            .action_space
+            .get(action_name)
             .ok_or_else(|| cc_dj_types::DJError::CommandNotFound(action_name.to_string()))?
             .clone();
 
@@ -69,7 +73,10 @@ impl DeckController {
         if action.quantized {
             let phase_error = deck_state.phase_error_deg();
             if phase_error.abs() > action.quant_window_deg {
-                debug!("Scheduling action for next beat (phase error: {}°)", phase_error);
+                debug!(
+                    "Scheduling action for next beat (phase error: {}°)",
+                    phase_error
+                );
                 self.scheduler.schedule(action.clone(), self.current_beat);
                 return Ok(());
             }
@@ -77,9 +84,10 @@ impl DeckController {
 
         // Execute immediately
         self.bridge.execute(&action).await?;
-        
+
         // Record execution for cooldown tracking
-        self.action_space.record_execution(action_name, self.current_beat);
+        self.action_space
+            .record_execution(action_name, self.current_beat);
 
         Ok(())
     }
@@ -87,21 +95,24 @@ impl DeckController {
     /// Updates the current beat position.
     pub fn update_beat(&mut self, beat: f64) {
         self.current_beat = beat;
-        
+
         // Check for scheduled actions
         if let Some(action) = self.scheduler.poll(beat) {
             let bridge = &self.bridge;
             let action_space = &mut self.action_space;
             let action_name = action.name.clone();
-            
+
             tokio::spawn({
                 let action = action.clone();
                 let bridge_name = bridge.name().to_string();
                 async move {
-                    debug!("Executing scheduled action: {} via {}", action.name, bridge_name);
+                    debug!(
+                        "Executing scheduled action: {} via {}",
+                        action.name, bridge_name
+                    );
                 }
             });
-            
+
             action_space.record_execution(&action_name, beat);
         }
     }
@@ -146,4 +157,3 @@ mod tests {
         assert_eq!(controller.current_beat(), 4.0);
     }
 }
-

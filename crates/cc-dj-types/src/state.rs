@@ -312,4 +312,3 @@ mod tests {
         assert_eq!(session.mixer.channels.len(), 2);
     }
 }
-

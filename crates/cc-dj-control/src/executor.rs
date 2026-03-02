@@ -27,16 +27,17 @@ impl ChainExecutor {
     }
 
     /// Executes a chain of actions.
-    pub async fn execute_chain(
-        &self,
-        actions: &[Action],
-        bridge: &dyn DJBridge,
-    ) -> Result<()> {
+    pub async fn execute_chain(&self, actions: &[Action], bridge: &dyn DJBridge) -> Result<()> {
         info!("Executing chain of {} actions", actions.len());
 
         for (i, action) in actions.iter().enumerate() {
-            debug!("Executing action {} of {}: {}", i + 1, actions.len(), action.name);
-            
+            debug!(
+                "Executing action {} of {}: {}",
+                i + 1,
+                actions.len(),
+                action.name
+            );
+
             bridge.execute(action).await?;
 
             // Add delay between actions (except after the last one)
@@ -50,11 +51,7 @@ impl ChainExecutor {
     }
 
     /// Executes actions in parallel.
-    pub async fn execute_parallel(
-        &self,
-        actions: &[Action],
-        bridge: &dyn DJBridge,
-    ) -> Result<()> {
+    pub async fn execute_parallel(&self, actions: &[Action], bridge: &dyn DJBridge) -> Result<()> {
         info!("Executing {} actions in parallel", actions.len());
 
         // For now, execute sequentially without delays
@@ -93,4 +90,3 @@ mod tests {
         assert!(result.is_ok());
     }
 }
-
