@@ -1,0 +1,239 @@
+/* ============================================================
+   cc-dj  |  Main Layout + Design System
+   Pioneer CDJ / Rekordbox / Traktor dark aesthetic
+   ============================================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-deepest:  #0a0a0c;
+  --bg-deep:     #111116;
+  --bg-surface:  #1a1a22;
+  --bg-elevated: #242430;
+  --bg-hover:    #2e2e3d;
+
+  /* Accent */
+  --accent:      #00d4aa;
+  --accent-dim:  #00a888;
+
+  /* Deck colors */
+  --deck-a:      #ff6b35;
+  --deck-a-dim:  #cc5529;
+  --deck-b:      #3b82f6;
+  --deck-b-dim:  #2d66c4;
+
+  /* Tier colors */
+  --tier-0: #22c55e;  /* Transport — green */
+  --tier-1: #00d4aa;  /* Looping — cyan */
+  --tier-2: #a855f7;  /* Cues — purple */
+  --tier-3: #f59e0b;  /* FX — amber */
+  --tier-4: #ef4444;  /* Library — red */
+  --tier-5: #ec4899;  /* Blend — pink */
+
+  /* Status */
+  --playing:     #22c55e;
+  --stopped:     #ef4444;
+  --cooldown:    #f59e0b;
+
+  /* Text */
+  --text-primary:   #e8e8f0;
+  --text-secondary: #8888a0;
+  --text-muted:     #555568;
+
+  /* Borders */
+  --border:      #2a2a38;
+  --border-lit:  #3a3a50;
+
+  /* Typography */
+  --font-mono: 'SF Mono', 'Cascadia Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  --font-ui:   -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  /* Spacing */
+  --gap: 8px;
+  --radius: 6px;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-deepest);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Overall grid: header / main / footer */
+body {
+  display: grid;
+  grid-template-rows: 48px 1fr 220px;
+  gap: 0;
+}
+
+.hidden { display: none !important; }
+
+/* ── HEADER ── */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.session-clock {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.software-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--bg-deep);
+  background: var(--accent);
+  padding: 2px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--stopped);
+  transition: background 0.3s;
+}
+.connection-dot.connected { background: var(--playing); }
+
+.energy-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.energy-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.energy-bar {
+  width: 60px;
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.energy-fill {
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(90deg, var(--tier-0), var(--tier-3), var(--tier-4));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.energy-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 16px;
+  text-align: right;
+}
+
+.voice-toggle {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.voice-toggle:hover { border-color: var(--accent); }
+.voice-toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.voice-toggle.active .mic-icon path { fill: var(--bg-deepest); }
+.mic-icon path { fill: var(--text-secondary); }
+
+/* ── MAIN ── */
+#main {
+  display: grid;
+  grid-template-columns: 1fr 180px 1fr;
+  gap: 2px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+/* ── FOOTER ── */
+#footer {
+  display: grid;
+  grid-template-columns: 260px 1fr 60px;
+  gap: 2px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-deepest);
+  overflow: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  #main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .mixer {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-direction: row !important;
+  }
+  #footer {
+    grid-template-columns: 1fr 60px;
+    grid-template-rows: auto auto;
+  }
+  .voice-ticker {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    grid-template-rows: 40px 1fr 180px;
+  }
+  #main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 80px 1fr;
+  }
+  .mixer {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #footer {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+}

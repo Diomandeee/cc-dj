@@ -1,0 +1,78 @@
+/* ============================================================
+   cc-dj  |  Animations — beat pulse, glow effects, tier unlock
+   ============================================================ */
+
+/* Beat pulse on deck border */
+@keyframes beat-pulse-a {
+  0%   { box-shadow: 0 0 0 rgba(255, 107, 53, 0); }
+  30%  { box-shadow: 0 0 20px rgba(255, 107, 53, 0.2); }
+  100% { box-shadow: 0 0 0 rgba(255, 107, 53, 0); }
+}
+
+@keyframes beat-pulse-b {
+  0%   { box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+  30%  { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+  100% { box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.deck-a.on-beat { animation: beat-pulse-a 0.2s ease; }
+.deck-b.on-beat { animation: beat-pulse-b 0.2s ease; }
+
+/* BPM text glow on beat */
+@keyframes bpm-glow-a {
+  0%   { text-shadow: 0 0 0 transparent; }
+  30%  { text-shadow: 0 0 12px var(--deck-a); }
+  100% { text-shadow: 0 0 0 transparent; }
+}
+@keyframes bpm-glow-b {
+  0%   { text-shadow: 0 0 0 transparent; }
+  30%  { text-shadow: 0 0 12px var(--deck-b); }
+  100% { text-shadow: 0 0 0 transparent; }
+}
+
+.deck-a .bpm-value.on-beat-bpm { animation: bpm-glow-a 0.2s ease; }
+.deck-b .bpm-value.on-beat-bpm { animation: bpm-glow-b 0.2s ease; }
+
+/* Pulsing glow for voice status */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+/* Red pulse for near-end warning */
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* Action button cascade (tier unlock) */
+@keyframes cascade-in {
+  0%   { opacity: 0.25; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.action-btn.cascade {
+  animation: cascade-in 0.3s ease forwards;
+}
+
+/* Crossfader glow */
+.cf-thumb.active {
+  box-shadow: 0 0 8px rgba(0, 212, 170, 0.3);
+  border-color: var(--accent);
+}
+
+/* Playing deck indicator */
+@keyframes playing-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+
+.btn-play.playing {
+  animation: playing-pulse 2s ease-in-out infinite;
+}
+
+/* Connection restore */
+@keyframes connected-flash {
+  0%   { background: var(--playing); }
+  100% { background: var(--playing); }
+}

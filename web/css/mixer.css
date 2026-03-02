@@ -1,0 +1,212 @@
+/* ============================================================
+   cc-dj  |  Mixer — EQ columns, crossfader, channel strips, knobs
+   ============================================================ */
+
+.mixer {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  overflow: hidden;
+}
+
+/* Channel strip */
+.channel-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  width: 100%;
+}
+
+.strip-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+#channel-a-strip .strip-label { color: var(--deck-a-dim); }
+#channel-b-strip .strip-label { color: var(--deck-b-dim); }
+
+/* EQ column */
+.eq-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.eq-bar {
+  position: relative;
+  height: 40px;
+  background: var(--bg-surface);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.eq-fill {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  height: 0%;
+  background: var(--accent);
+  opacity: 0.6;
+  transition: height 0.1s, bottom 0.1s;
+}
+
+/* When EQ is cut (negative), fill grows downward from center */
+.eq-bar.cut .eq-fill {
+  bottom: auto;
+  top: 50%;
+}
+
+.eq-center {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--text-muted);
+  transform: translateY(-0.5px);
+}
+
+/* Filter knob */
+.filter-knob, .master-volume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.knob-track {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid var(--border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.knob-indicator {
+  width: 2px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  position: absolute;
+  top: 4px;
+}
+
+/* Volume fader */
+.volume-fader {
+  width: 100%;
+  height: 80px;
+}
+
+.fader-track {
+  width: 6px;
+  height: 100%;
+  background: var(--bg-surface);
+  border-radius: 3px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.fader-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 3px;
+  transition: height 0.1s;
+}
+
+#channel-a-strip .fader-fill { background: var(--deck-a-dim); }
+#channel-b-strip .fader-fill { background: var(--deck-b-dim); }
+
+/* CUE button */
+.cue-btn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cue-btn.active {
+  background: var(--cooldown);
+  color: var(--bg-deepest);
+  border-color: var(--cooldown);
+}
+
+/* Crossfader section */
+.crossfader-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.master-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.crossfader {
+  width: 100%;
+  padding: 0 4px;
+}
+
+.cf-track {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, var(--deck-a-dim), var(--bg-surface) 45%, var(--bg-surface) 55%, var(--deck-b-dim));
+  border-radius: 4px;
+  position: relative;
+}
+
+.cf-thumb {
+  width: 20px;
+  height: 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-lit);
+  border-radius: 3px;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: left 0.1s;
+}
+
+.cf-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}

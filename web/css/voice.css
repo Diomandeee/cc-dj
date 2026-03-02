@@ -1,0 +1,102 @@
+/* ============================================================
+   cc-dj  |  Voice Ticker — scrolling feed + status indicator
+   ============================================================ */
+
+.voice-ticker {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ticker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ticker-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.voice-status {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+.voice-status.off {
+  color: var(--text-muted);
+  background: var(--bg-surface);
+}
+.voice-status.listening {
+  color: var(--accent);
+  background: rgba(0, 212, 170, 0.12);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.voice-status.error {
+  color: var(--stopped);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* Feed */
+.ticker-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ticker-entry {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  animation: slide-in 0.3s ease;
+}
+
+.ticker-entry .ts {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.ticker-entry .heard {
+  color: var(--text-secondary);
+}
+
+.ticker-entry .command {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ticker-entry .check {
+  color: var(--playing);
+}
+
+.ticker-entry.unrecognized .heard {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

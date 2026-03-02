@@ -1,0 +1,192 @@
+/* ============================================================
+   cc-dj  |  Action Grid — tier tabs, action buttons, cooldowns
+   ============================================================ */
+
+.action-grid {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Tier tabs */
+.tier-tabs {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tier-tab {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 6px 4px;
+  border: none;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-bottom: 2px solid transparent;
+  text-align: center;
+}
+
+.tier-tab:hover {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+}
+
+.tier-tab.active {
+  color: var(--text-primary);
+  background: var(--bg-deep);
+}
+.tier-tab[data-tier="0"].active { border-bottom-color: var(--tier-0); color: var(--tier-0); }
+.tier-tab[data-tier="1"].active { border-bottom-color: var(--tier-1); color: var(--tier-1); }
+.tier-tab[data-tier="2"].active { border-bottom-color: var(--tier-2); color: var(--tier-2); }
+.tier-tab[data-tier="3"].active { border-bottom-color: var(--tier-3); color: var(--tier-3); }
+.tier-tab[data-tier="4"].active { border-bottom-color: var(--tier-4); color: var(--tier-4); }
+.tier-tab[data-tier="5"].active { border-bottom-color: var(--tier-5); color: var(--tier-5); }
+
+.tier-tab.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Action buttons container */
+.action-buttons {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 4px;
+  padding: 8px;
+  overflow-y: auto;
+  align-content: start;
+}
+
+/* Individual action button */
+.action-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 8px 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.action-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-lit);
+  color: var(--text-primary);
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+/* Deck indicator */
+.action-btn .deck-tag {
+  font-size: 8px;
+  opacity: 0.5;
+  margin-left: 2px;
+}
+
+/* Locked state */
+.action-btn.locked {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.action-btn.locked::after {
+  content: '\1F512';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
+}
+
+/* Cooldown overlay */
+.action-btn.cooldown {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.action-btn .cooldown-arc {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Flash states */
+.action-btn.flash-success {
+  animation: flash-green 0.4s ease;
+}
+.action-btn.flash-error {
+  animation: flash-red 0.4s ease;
+}
+
+@keyframes flash-green {
+  0%   { background: var(--playing); color: var(--bg-deepest); }
+  100% { background: var(--bg-surface); }
+}
+@keyframes flash-red {
+  0%   { background: var(--stopped); color: var(--bg-deepest); }
+  100% { background: var(--bg-surface); }
+}
+
+/* ── Tier Bar ── */
+.tier-bar {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+}
+
+.tier-segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--bg-deepest);
+  transition: all 0.3s;
+}
+
+.tier-segment[data-tier="0"] { background: var(--tier-0); }
+.tier-segment[data-tier="1"] { background: var(--tier-1); }
+.tier-segment[data-tier="2"] { background: var(--tier-2); }
+.tier-segment[data-tier="3"] { background: var(--tier-3); }
+.tier-segment[data-tier="4"] { background: var(--tier-4); }
+.tier-segment[data-tier="5"] { background: var(--tier-5); }
+
+.tier-segment.locked {
+  background: var(--bg-elevated) !important;
+  color: var(--text-muted);
+}
+
+/* Tier unlock animation */
+.tier-segment.unlocking {
+  animation: tier-unlock 0.6s ease;
+}
+@keyframes tier-unlock {
+  0%   { transform: scale(0.8); opacity: 0.5; }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
