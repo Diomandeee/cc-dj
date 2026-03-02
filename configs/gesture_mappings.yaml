@@ -1,0 +1,162 @@
+# Comprehensive Gesture-to-Command Mappings for Rekordbox
+# Maps motion gestures to Rekordbox keyboard shortcuts
+#
+# Gesture Types Available:
+# - flick_forward, flick_back
+# - shake
+# - double_tap
+# - scratch_motion
+# - circular_motion
+# - punch
+# - snap
+# - wrist_twist_left
+# - tilt_control
+# - up_down_motion
+
+# Left Deck (Deck 1) Gestures
+left_deck:
+  # Transport Controls
+  flick_forward:
+    command_id: "3006"
+    shortcut: "Z"
+    description: "Play/Pause Left Deck"
+    category: transport
+  
+  double_tap:
+    command_id: "3007"
+    shortcut: "A"
+    description: "Cue Left Deck"
+    category: transport
+  
+  # Loop Controls
+  circular_motion:
+    command_id: "3014"
+    shortcut: "command + 4"
+    description: "4-Beat Loop Left Deck"
+    category: loop
+  
+  scratch_motion:
+    command_id: "3018"
+    shortcut: "shift + D"
+    description: "Halve Loop (Loop /2)"
+    category: loop
+  
+  punch:
+    command_id: "3019"  
+    shortcut: "shift + G"
+    description: "Double Loop (Loop x2)"
+    category: loop
+  
+  # Sync & Tempo
+  shake:
+    command_id: "304b"
+    shortcut: "Q"
+    description: "Beat Sync Left Deck"
+    category: sync_tempo
+  
+  wrist_twist_left:
+    command_id: "304c"
+    shortcut: "shift + Q"
+    description: "Beat Sync Master"
+    category: sync_tempo
+
+  # Hot Cues (Quick Actions)
+  snap:
+    command_id: "301e"
+    shortcut: "1"
+    description: "Set/Jump to Hot Cue A"
+    category: transport
+
+# Right Deck (Deck 2) Gestures
+right_deck:
+  # Transport Controls
+  flick_forward:
+    command_id: "3106"
+    shortcut: "N"
+    description: "Play/Pause Right Deck"
+    category: transport
+  
+  double_tap:
+    command_id: "3107"
+    shortcut: "K"
+    description: "Cue Right Deck"
+    category: transport
+  
+  # Loop Controls
+  circular_motion:
+    command_id: "3114"
+    shortcut: "command + shift + 4"
+    description: "4-Beat Loop Right Deck"
+    category: loop
+  
+  scratch_motion:
+    command_id: "3118"
+    shortcut: "shift + K"
+    description: "Halve Loop (Loop /2)"
+    category: loop
+  
+  punch:
+    command_id: "3119"
+    shortcut: "shift + semicolon"
+    description: "Double Loop (Loop x2)"
+    category: loop
+  
+  # Sync & Tempo
+  shake:
+    command_id: "314b"
+    shortcut: "P"
+    description: "Beat Sync Right Deck"
+    category: sync_tempo
+  
+  wrist_twist_left:
+    command_id: "314c"
+    shortcut: "shift + P"
+    description: "Beat Sync Master"
+    category: sync_tempo
+
+  # Hot Cues
+  snap:
+    command_id: "311e"
+    shortcut: "8"
+    description: "Set/Jump to Hot Cue A"
+    category: transport
+
+# Additional Gesture Ideas (to be trained)
+training_suggestions:
+  - gesture: "swipe_up"
+    suggested_command: "Increase Volume/Filter"
+    notes: "Good for continuous control"
+  
+  - gesture: "swipe_down"
+    suggested_command: "Decrease Volume/Filter"
+    notes: "Good for continuous control"
+  
+  - gesture: "spiral_out"
+    suggested_command: "Loop Out / Reloop Exit"
+    notes: "Intuitive for ending a loop"
+  
+  - gesture: "tap_and_hold"
+    suggested_command: "Reverse / Backspin"
+    notes: "Hold gesture for duration"
+  
+  - gesture: "figure_eight"
+    suggested_command: "Crossfader Center"
+    notes: "Complex but distinctive"
+
+# Multi-Device Configuration
+devices:
+  phone_left:
+    role: "left"
+    device_id: "phone_1"
+    mappings: "left_deck"
+  
+  phone_right:
+    role: "right"
+    device_id: "phone_2"
+    mappings: "right_deck"
+  
+  apple_watch:
+    role: "context"
+    device_id: "watch_1"
+    mappings: "context_gestures"
+    notes: "Future support - global controls like crossfader, master tempo"

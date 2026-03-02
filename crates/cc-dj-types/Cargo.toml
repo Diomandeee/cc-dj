@@ -1,0 +1,19 @@
+[package]
+name = "cc-dj-types"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Core types for DJ agent: Commands, Actions, Tiers, State"
+
+[lib]
+name = "cc_dj_types"
+crate-type = ["rlib"]
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }

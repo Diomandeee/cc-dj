@@ -1,0 +1,26 @@
+[package]
+name = "cc-dj-voice"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Voice control for DJ agent using Gemini Live API"
+
+[lib]
+name = "cc_dj_voice"
+crate-type = ["rlib"]
+
+[dependencies]
+cc-dj-types = { workspace = true }
+cc-gemini = { workspace = true }
+
+tokio = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+cpal = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }

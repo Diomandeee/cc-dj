@@ -1,0 +1,303 @@
+# DJ Agent Configuration
+# Tiered, beat-quantized auto-DJ for motion-driven performance
+
+dj:
+  # Software selection
+  # Change this to "serato" or "rekordbox" depending on which DJ software you're using
+  software: "rekordbox"  # Options: "serato" or "rekordbox"
+
+  # Quantization and timing
+  quant_window_deg: 15        # Phase window for beat-locked actions (degrees)
+
+  # Cooldown periods (in beats)
+  cooldown_beats:
+    loop_set: 2
+    loop_resize: 2
+    fx_toggle: 4
+    cue_jump: 4
+    sample_trigger: 8
+    load: 16
+
+  # Which tiers to enable (unlock progressively)
+  tiers_enabled: [0, 1, 2, 3]  # Tier 0-3: Transport, Looping, Cues, FX
+  # Later: add 4 (Library), 5 (Blend)
+
+  # Safety constraints
+  safety:
+    lock_playing_deck: true         # Forbid STOP on live deck
+    forbid_load_on_live: true       # Never load track on playing deck
+    eq_max_db_per_beat: 6           # Max EQ change per beat
+    crossfader_max_slope: 0.25      # Max crossfader change per beat (0-1 scale)
+
+  # Reflex policy (frame-rate continuous controls)
+  reflex:
+    filter_cutoff_range: [1200, 6000]  # Hz
+    filter_resonance: 0.5
+    amp_curve: "log"                    # "log" or "linear"
+    pan_from_limbs: true                # Use limb asymmetry for stereo pan
+
+  # Reward weights (for RL fine-tuning)
+  rewards:
+    w_phase: 1.0        # Phase alignment
+    w_ongrid: 1.2       # On-grid action bonus
+    w_key: 0.6          # Harmonic compatibility
+    w_smooth: 0.6       # Smoothness (no jitter)
+    w_energy: 0.4       # Energy contour match
+    w_spam: 1.0         # Anti-spam penalty
+    w_novel: 0.2        # Novelty at section boundaries
+
+  # Serato communication
+  serato:
+    mode: "midi"        # "midi" or "keyboard"
+    midi_port: "IAC Driver Bus 1"  # macOS virtual MIDI port
+    # For Windows, use: "loopMIDI Port 1"
+    
+    # MIDI/keyboard mapping (Tier 0-3 actions)
+    # Configure these in Serato → MIDI → MIDI Learn
+    map:
+      # Tier 0: Transport (keyboard shortcuts)
+      PLAY_A:
+        type: key
+        key: "space"
+      
+      PLAY_B:
+        type: key
+        key: "space"
+        modifiers: ["shift"]
+      
+      SYNC_A:
+        type: key
+        key: "s"
+      
+      SYNC_B:
+        type: key
+        key: "s"
+        modifiers: ["shift"]
+      
+      PITCH_NUDGE_UP_A:
+        type: key
+        key: "+"
+      
+      PITCH_NUDGE_DOWN_A:
+        type: key
+        key: "-"
+      
+      BACKSPIN_A:
+        type: sequence
+        steps:
+          - key: "q"
+          - key: "u"
+
+      BACKSPIN_B:
+        type: sequence
+        steps:
+          - key: "a"
+          - key: "j"
+
+      PLAY_BOTH:
+        type: sequence
+        steps:
+          - key: "space"
+          - key: "space"
+            modifiers: ["shift"]
+
+      # Tier 1: Looping
+      LOOP_4_A:
+        type: key
+        key: "4"
+      
+      LOOP_4_B:
+        type: key
+        key: "4"
+        modifiers: ["shift"]
+      
+      LOOP_DOUBLE_A:
+        type: key
+        key: "*"
+      
+      LOOP_HALVE_A:
+        type: key
+        key: "/"
+      
+      RELOOP_A:
+        type: key
+        key: "r"
+      
+      # Tier 2: Cues (add as needed)
+      JUMP_CUE_1_A:
+        type: key
+        key: "1"
+      
+      # Tier 3: FX
+      FX_TOGGLE_1_A:
+        type: key
+        key: "f"
+      
+      FX_TOGGLE_1_B:
+        type: key
+        key: "f"
+        modifiers: ["shift"]
+      
+      ECHO_TAP_A:
+        type: key
+        key: "e"
+    
+    # Keyboard mode (alternative to MIDI)
+    # Uncomment to use keyboard shortcuts instead
+    # map:
+    #   PLAY_A:
+    #     type: key
+    #     key: "space"
+    #   PLAY_B:
+    #     type: key
+    #     key: "shift+space"
+    #   SYNC_A:
+    #     type: key
+    #     key: "s"
+    #   LOOP_4_A:
+    #     type: key
+    #     key: "4"
+  
+  # Rekordbox communication (keyboard mode — Rekordbox default shortcuts)
+  rekordbox:
+    mode: "keyboard"
+    map:
+      # Tier 0: Transport
+      PLAY_A:
+        type: key
+        key: "z"
+      PLAY_B:
+        type: key
+        key: "m"
+      SYNC_A:
+        type: key
+        key: "c"
+      SYNC_B:
+        type: key
+        key: "."
+      CUE_A:
+        type: key
+        key: "x"
+      CUE_B:
+        type: key
+        key: ","
+      PITCH_NUDGE_UP_A:
+        type: key
+        key: "t"
+      PITCH_NUDGE_DOWN_A:
+        type: key
+        key: "g"
+      PITCH_NUDGE_UP_B:
+        type: key
+        key: "["
+      PITCH_NUDGE_DOWN_B:
+        type: key
+        key: "'"
+
+      PLAY_BOTH:
+        type: sequence
+        steps:
+          - key: "z"
+          - key: "m"
+
+      BACKSPIN_A:
+        type: sequence
+        steps:
+          - key: "z"
+          - key: "z"
+            delay_ms: 50
+
+      # Tier 1: Looping
+      LOOP_4_A:
+        type: key
+        key: "4"
+      LOOP_4_B:
+        type: key
+        key: "0"
+      LOOP_DOUBLE_A:
+        type: key
+        key: "6"
+      LOOP_HALVE_A:
+        type: key
+        key: "5"
+      RELOOP_A:
+        type: key
+        key: "7"
+
+      # Tier 2: Cues
+      JUMP_CUE_1_A:
+        type: key
+        key: "1"
+      JUMP_CUE_2_A:
+        type: key
+        key: "2"
+      JUMP_CUE_3_A:
+        type: key
+        key: "3"
+
+      # Tier 3: FX
+      FX_TOGGLE_1_A:
+        type: key
+        key: "f"
+      FX_TOGGLE_1_B:
+        type: key
+        key: "f"
+        modifiers: ["shift"]
+
+  # Voice Commands
+  voice:
+    enabled: true  # Set to true to enable voice control
+    engine: "gemini"  # "google", "sphinx" (offline), "whisper", or "gemini" (live)
+    
+    # Recognition settings
+    listen_timeout: 1.0  # Seconds to wait for speech
+    phrase_time_limit: 3.0  # Max phrase duration
+    ambient_noise_duration: 1.0  # Calibration time
+    
+    # Custom command mappings (override defaults)
+    command_map:
+      "play": "PLAY_A"
+      "play left": "PLAY_A"
+      "play deck left": "PLAY_A"
+      "play right": "PLAY_B"
+      "play deck right": "PLAY_B"
+      "play both": "PLAY_BOTH"
+      "play both decks": "PLAY_BOTH"
+      "pause": "PLAY_A"
+      "pause left": "PLAY_A"
+      "pause right": "PLAY_B"
+      "backspin": "BACKSPIN_A"
+      "backspin left": "BACKSPIN_A"
+      "backspin right": "BACKSPIN_B"
+      "loop four": "LOOP_4_A"
+      "loop deck right": "LOOP_4_B"
+      "loop right": "LOOP_4_B"
+      "drop it": "JUMP_CUE_1_A"
+      "kill it": "FX_TOGGLE_1_A"
+      "bring it back": "RELOOP_A"
+    
+    # Confirmation feedback
+    speak_feedback: false  # Say action name after executing
+    audio_feedback: true   # Play sound when command recognized
+    
+    # OpenAI Voice Commands (alternative to Google/Sphinx)
+    # Set provider: "openai" to use OpenAI Whisper + GPT-4 structured outputs
+    provider: "gemini"  # "google", "sphinx", "whisper", "openai", or "gemini"
+    
+    # OpenAI-specific settings (only used when provider="openai")
+    openai:
+      enabled: true  # Set to true to use OpenAI
+      api_key: null   # Set OPENAI_API_KEY env var or put key here
+      model: "gpt-4o-mini"  # GPT model for intent parsing
+      whisper_model: "whisper-1"  # Whisper model for transcription
+      sample_rate: 16000  # Audio sample rate
+      chunk_size: 1024    # Audio chunk size
+      record_seconds: 2.5  # How long to record per command
+      record_interval: 4.0  # Seconds between recordings (reduce to lower CPU load)
+      min_command_interval: 0.5  # Minimum seconds between commands
+      
+      # Voice Activity Detection (VAD) - Filters out music/noise
+      use_vad: false  # Enable VAD to block music from speakers
+      vad_threshold: 0.03  # Energy threshold (0.0-1.0, higher = more sensitive)
+      vad_ratio: 0.3  # Min % of samples above threshold (0.0-1.0)
+

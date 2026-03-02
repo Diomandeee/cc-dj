@@ -1,0 +1,23 @@
+[package]
+name = "cc-dj-control"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "DJ software control bridges and action execution"
+
+[lib]
+name = "cc_dj_control"
+crate-type = ["rlib"]
+
+[dependencies]
+cc-dj-types = { workspace = true }
+
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+midir = { workspace = true }

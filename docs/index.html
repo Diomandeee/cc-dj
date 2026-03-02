@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cc-dj — Voice-Controlled DJ Agent</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --text: #e0e0e8;
+            --muted: #8888a0;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --green: #22c55e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .hero-badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        /* Install */
+        .install {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+        .install h2 {
+            font-size: 1.1rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .step-num {
+            background: var(--accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+        .step-content p { margin-bottom: 8px; }
+        code {
+            background: var(--bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        pre {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .feature {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .feature h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .feature p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* Architecture */
+        .arch {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+        .arch h2 {
+            font-size: 1.1rem;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .arch pre {
+            border: none;
+            margin: 0;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 40px 0 80px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.85; }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            margin-right: 12px;
+        }
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <section class="hero">
+        <h1>cc-dj</h1>
+        <p>Control your DJ software with your voice. Powered by Google's Gemini Live API for real-time speech recognition.</p>
+        <div class="hero-badges">
+            <span class="badge">Rust</span>
+            <span class="badge">Rekordbox</span>
+            <span class="badge">Serato</span>
+            <span class="badge">macOS / Linux / Windows</span>
+        </div>
+    </section>
+
+    <section class="install">
+        <h2>Get Started in 3 Steps</h2>
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <p>Get a <a href="https://aistudio.google.com/apikey" style="color: var(--accent-light)">Gemini API key</a> (free tier works)</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <p>Download the <a href="https://github.com/diomandeee/cc-dj/releases/latest" style="color: var(--accent-light)">latest binary</a> for your platform</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <p>Run it:</p>
+                <pre>export GEMINI_API_KEY=your_key_here
+./cc-dj</pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h3>Real-Time Voice</h3>
+            <p>Gemini Live API streams audio over WebSocket for instant speech-to-command with sub-second latency.</p>
+        </div>
+        <div class="feature">
+            <h3>Rekordbox + Serato</h3>
+            <p>Dual-bridge architecture supports both DJ platforms via keyboard automation or MIDI output.</p>
+        </div>
+        <div class="feature">
+            <h3>Beat-Quantized</h3>
+            <p>Actions snap to the beat grid with configurable phase tolerance. No more off-beat transitions.</p>
+        </div>
+        <div class="feature">
+            <h3>Safety System</h3>
+            <p>6-tier progressive unlock prevents accidental track loads, EQ spikes, and crossfader slams.</p>
+        </div>
+        <div class="feature">
+            <h3>Auto-Mix</h3>
+            <p>Built-in auto-DJ with section-aware transitions, harmonic mixing, and energy curve management.</p>
+        </div>
+        <div class="feature">
+            <h3>Fully Configurable</h3>
+            <p>YAML configs for commands, mappings, safety limits, and voice settings. Over 2,000 command definitions included.</p>
+        </div>
+    </section>
+
+    <section class="arch">
+        <h2>Architecture</h2>
+        <pre>
+Mic (16kHz) ──► cc-dj-voice ──► Gemini Live API
+                     │                  │
+                     ▼                  │
+              Intent Processor ◄────────┘
+                     │
+              Command Orbiter (3+ match stability)
+                     │
+              cc-dj-control ──► Rekordbox / Serato
+                                (keystroke / MIDI)</pre>
+    </section>
+
+    <section class="cta">
+        <a href="https://github.com/diomandeee/cc-dj/releases/latest" class="btn btn-primary">Download Latest</a>
+        <a href="https://github.com/diomandeee/cc-dj" class="btn btn-secondary">View on GitHub</a>
+    </section>
+</div>
+
+</body>
+</html>

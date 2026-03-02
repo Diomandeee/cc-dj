@@ -1,0 +1,59 @@
+[workspace]
+members = [
+    "crates/cc-dj-types",
+    "crates/cc-dj-voice",
+    "crates/cc-dj-gesture",
+    "crates/cc-dj-control",
+    "crates/cc-dj-auto",
+    "crates/cc-dj-live",
+    "vendor/cc-gemini",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Mohamed Diomande"]
+license = "MIT"
+repository = "https://github.com/diomandeee/cc-dj"
+
+[workspace.dependencies]
+# Vendored
+cc-gemini = { path = "vendor/cc-gemini" }
+
+# Internal crates
+cc-dj-types = { path = "crates/cc-dj-types" }
+cc-dj-voice = { path = "crates/cc-dj-voice" }
+cc-dj-gesture = { path = "crates/cc-dj-gesture" }
+cc-dj-control = { path = "crates/cc-dj-control" }
+cc-dj-auto = { path = "crates/cc-dj-auto" }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+
+# Error handling
+thiserror = "1"
+anyhow = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# Utilities
+chrono = { version = "0.4", features = ["serde"] }
+
+# Audio capture
+cpal = "0.15"
+
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# MIDI support
+midir = "0.9"

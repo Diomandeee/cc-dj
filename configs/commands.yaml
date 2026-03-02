@@ -1,0 +1,3381 @@
+commands:
+- id: '3000'
+  canonical: Zoom In
+  synonyms: []
+  category: layout
+  deck: left
+  action_type: layout
+  shortcut: shift + -
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3000'
+  canonical: Zoom In
+  synonyms: []
+  category: layout
+  deck: left
+  action_type: layout
+  shortcut: shift + -
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3001'
+  canonical: Zoom Out
+  synonyms: []
+  category: layout
+  deck: left
+  action_type: layout
+  shortcut: '-'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3002'
+  canonical: Reset Zoom
+  synonyms: []
+  category: layout
+  deck: left
+  action_type: layout
+  shortcut: shift + =
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3006'
+  canonical: Play/Pause
+  synonyms:
+  - play left deck
+  - play left
+  - start left deck
+  - pause left deck
+  - pause left
+  category: transport
+  deck: left
+  action_type: play_pause
+  shortcut: Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3007'
+  canonical: Cue
+  synonyms:
+  - cue left deck
+  - set cue on left deck
+  - cue point left
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3008'
+  canonical: Jump Forward
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: command + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3009'
+  canonical: Jump Reverse
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: transport
+  shortcut: command + R
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300a
+  canonical: Loop In
+  synonyms:
+  - set loop in
+  - loop in point
+  - start loop
+  - mark loop start
+  - set loop start here
+  category: loop
+  deck: left
+  action_type: loop_in
+  shortcut: D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300b
+  canonical: Loop Out
+  synonyms:
+  - set loop out
+  - loop out point
+  - end loop
+  - mark loop end
+  - set loop end here
+  category: loop
+  deck: left
+  action_type: loop_out
+  shortcut: F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300c
+  canonical: Exit/Reloop
+  synonyms:
+  - exit loop
+  - reloop
+  - toggle loop
+  - leave the loop
+  - turn loop off
+  category: loop
+  deck: left
+  action_type: reloop_exit
+  shortcut: G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300d
+  canonical: 1/32 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + ;
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300e
+  canonical: 1/16 Beat Loop
+  synonyms:
+  - 16 beat loop
+  - loop 16 beats
+  - set 16 beat loop
+  - make a 16 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 300f
+  canonical: 1/8 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + N
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3010'
+  canonical: 1/4 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + return
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3011'
+  canonical: 1/2 Beat Loop
+  synonyms:
+  - 1/2 beat loop
+  - loop 1/2 beats
+  - set 1/2 beat loop
+  - make a 1/2 beat loop
+  category: loop
+  deck: left
+  action_type: loop_half
+  shortcut: command + 1
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3012'
+  canonical: 1 Beat Loop
+  synonyms:
+  - 1 beat loop
+  - loop 1 beats
+  - set 1 beat loop
+  - make a 1 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: command + 2
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3013'
+  canonical: 2 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: command + 3
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3014'
+  canonical: 4 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: command + 4
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3015'
+  canonical: 8 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: command + 5
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3016'
+  canonical: 16 Beat Loop
+  synonyms:
+  - 16 beat loop
+  - loop 16 beats
+  - set 16 beat loop
+  - make a 16 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + backspace
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3017'
+  canonical: 32 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + option + command + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3018'
+  canonical: Loop /2
+  synonyms:
+  - halve loop
+  - loop half
+  - shrink loop
+  - loop divide two
+  - make loop shorter
+  - reduce loop length
+  category: loop
+  deck: left
+  action_type: loop_half
+  shortcut: shift + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3019'
+  canonical: Loop x2
+  synonyms:
+  - double loop
+  - loop double
+  - expand loop
+  - loop times two
+  - make loop longer
+  - stretch loop
+  category: loop
+  deck: left
+  action_type: loop_double
+  shortcut: shift + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 301a
+  canonical: Next Track
+  synonyms: []
+  category: library
+  deck: left
+  action_type: library
+  shortcut: option + A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 301b
+  canonical: Previous Track
+  synonyms: []
+  category: library
+  deck: left
+  action_type: library
+  shortcut: option + Q
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 301c
+  canonical: Quantize
+  synonyms:
+  - toggle quantize
+  - turn quantize on
+  - turn quantize off
+  - quantize beat
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: command + \
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 301e
+  canonical: Set Hot Cue A
+  synonyms:
+  - set hot cue a left deck
+  - set cue a left deck
+  - set hot cue a deck 1
+  - set hot cue a deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: '1'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 301f
+  canonical: Set Hot Cue B
+  synonyms:
+  - set hot cue b left deck
+  - set cue b left deck
+  - set hot cue b deck 1
+  - set hot cue b deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: '2'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3020'
+  canonical: Set Hot Cue C
+  synonyms:
+  - set hot cue c left deck
+  - set cue c left deck
+  - set hot cue c deck 1
+  - set hot cue c deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: '3'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3021'
+  canonical: Clear Hot Cue A
+  synonyms:
+  - clear hot cue a left deck
+  - delete cue a left deck
+  - clear hot cue a deck 1
+  - clear hot cue a deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + command + 1
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3022'
+  canonical: Clear Hot Cue B
+  synonyms:
+  - clear hot cue b left deck
+  - delete cue b left deck
+  - clear hot cue b deck 1
+  - clear hot cue b deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + command + 2
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3023'
+  canonical: Clear Hot Cue C
+  synonyms:
+  - clear hot cue c left deck
+  - delete cue c left deck
+  - clear hot cue c deck 1
+  - clear hot cue c deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + command + 3
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3024'
+  canonical: Set Memory Cue
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3039'
+  canonical: Call Next Memory Cue
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 303a
+  canonical: Call Previous Memory Cue
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: R
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 303b
+  canonical: Delete Memory Cue
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + R
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3043'
+  canonical: Fine Shift Beatgrid right
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + 4
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3044'
+  canonical: Fine Shift Beatgrid left
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + 2
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3045'
+  canonical: Shift beatgrid to the center
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + 3
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3046'
+  canonical: Expand beat intervals
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3047'
+  canonical: Shrink beat intervals
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 304b
+  canonical: BEAT SYNC
+  synonyms:
+  - beat sync
+  - sync
+  - match tempo
+  - sync the beat
+  - lock the beats
+  category: sync_tempo
+  deck: left
+  action_type: beat_sync
+  shortcut: Q
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 304c
+  canonical: Beat Sync Master
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: beat_sync_master
+  shortcut: shift + Q
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 304d
+  canonical: Master Tempo
+  synonyms:
+  - master tempo
+  - key lock
+  - pitch lock
+  - lock the key
+  - preserve key
+  category: sync_tempo
+  deck: left
+  action_type: master_tempo
+  shortcut: shift + 5
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 304e
+  canonical: Tempo Reset
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: tempo
+  shortcut: option + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 304f
+  canonical: Pitch Bend +
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: pitch_bend_plus
+  shortcut: E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3050'
+  canonical: Pitch Bend -
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: pitch_bend_minus
+  shortcut: W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3054'
+  canonical: Set Hot Cue D
+  synonyms:
+  - set hot cue d left deck
+  - set cue d left deck
+  - set hot cue d deck 1
+  - set hot cue d deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: '4'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3055'
+  canonical: Clear Hot Cue D
+  synonyms:
+  - clear hot cue d left deck
+  - delete cue d left deck
+  - clear hot cue d deck 1
+  - clear hot cue d deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + command + 4
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3057'
+  canonical: Return to the beginning of the track
+  synonyms: []
+  category: library
+  deck: left
+  action_type: library
+  shortcut: shift + A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3058'
+  canonical: Slip
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: slip
+  shortcut: command + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3059'
+  canonical: Tempo Range
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: tempo
+  shortcut: shift + spacebar
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305a
+  canonical: Increase Tempo (small)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: left
+  action_type: tempo_up
+  shortcut: shift + S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305b
+  canonical: Increase Tempo (medium)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: left
+  action_type: tempo_up
+  shortcut: shift + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305c
+  canonical: Increase Tempo (large)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: left
+  action_type: tempo_up
+  shortcut: option + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305d
+  canonical: Decrease Tempo (small)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: left
+  action_type: tempo_down
+  shortcut: option + S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305e
+  canonical: Decrease Tempo (medium)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: left
+  action_type: tempo_down
+  shortcut: shift + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 305f
+  canonical: Decrease Tempo (large)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: left
+  action_type: tempo_down
+  shortcut: command + A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3060'
+  canonical: Reverse
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: transport
+  shortcut: option + R
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3061'
+  canonical: Slip Reverse
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: slip
+  shortcut: S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3062'
+  canonical: Vinyl mode
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3063'
+  canonical: Pad mode - Hot Cue
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: ctrl + shift + option + command + B
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3064'
+  canonical: Pad mode - Pad FX 1
+  synonyms: []
+  category: effects
+  deck: left
+  action_type: effects
+  shortcut: ctrl + option + command + 2
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3065'
+  canonical: Pad mode - Pad FX 2
+  synonyms: []
+  category: effects
+  deck: left
+  action_type: effects
+  shortcut: ctrl + option + command + =
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3066'
+  canonical: Pad mode - Beat Jump
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + option + command + 0
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3067'
+  canonical: Pad mode - Sampler
+  synonyms: []
+  category: sampler
+  deck: left
+  action_type: sampler
+  shortcut: ctrl + option + command + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3069'
+  canonical: Pad mode - Slicer
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + option + command + X
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 306a
+  canonical: Pad mode - Slicer Loop
+  synonyms: []
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: ctrl + option + command + K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 307f
+  canonical: Set Hot Cue E
+  synonyms:
+  - set hot cue e left deck
+  - set cue e left deck
+  - set hot cue e deck 1
+  - set hot cue e deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + N
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3080'
+  canonical: Set Hot Cue F
+  synonyms:
+  - set hot cue f left deck
+  - set cue f left deck
+  - set hot cue f deck 1
+  - set hot cue f deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + J
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3081'
+  canonical: Set Hot Cue G
+  synonyms:
+  - set hot cue g left deck
+  - set cue g left deck
+  - set hot cue g deck 1
+  - set hot cue g deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3082'
+  canonical: Set Hot Cue H
+  synonyms:
+  - set hot cue h left deck
+  - set cue h left deck
+  - set hot cue h deck 1
+  - set hot cue h deck one
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + cursor left
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3083'
+  canonical: Set Hot Cue I
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + cursor down
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3084'
+  canonical: Set Hot Cue J
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + cursor right
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3085'
+  canonical: Set Hot Cue K
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + command + cursor up
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3086'
+  canonical: Set Hot Cue L
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + cursor down
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3087'
+  canonical: Set Hot Cue M
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + option + cursor down
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3088'
+  canonical: Set Hot Cue N
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + ;
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3089'
+  canonical: Set Hot Cue O
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 308a
+  canonical: Set Hot Cue P
+  synonyms: []
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: shift + cursor up
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3097'
+  canonical: Forward 1/2 beat
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3098'
+  canonical: Forward 1 beat
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + R
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3099'
+  canonical: Forward 2 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309a
+  canonical: Forward 4 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + 0
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309b
+  canonical: Forward 8 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + =
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309c
+  canonical: Forward 16 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309d
+  canonical: Forward 8 bars
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309e
+  canonical: Backward 1/2 beat
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 309f
+  canonical: Backward 1 beat
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a0
+  canonical: Backward 2 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a1
+  canonical: Backward 4 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + C
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a2
+  canonical: Backward 8 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + V
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a3
+  canonical: Backward 16 beats
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a4
+  canonical: Backward 8 bars
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + O
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30a5
+  canonical: Auto Beat Loop ON/OFF
+  synonyms: []
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30a7
+  canonical: Metronome Volume
+  synonyms: []
+  category: mixer
+  deck: left
+  action_type: mixer
+  shortcut: option + 1
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30aa
+  canonical: Large expand beat intervals
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: beatgrid_edit
+  shortcut: option + command + K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30ac
+  canonical: Halve the BPM value
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: tempo
+  shortcut: command + [
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30ad
+  canonical: Double the BPM value
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: tempo
+  shortcut: option + command + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30af
+  canonical: Show GRID Panel
+  synonyms: []
+  category: grid
+  deck: left
+  action_type: grid
+  shortcut: option + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30b5
+  canonical: Pad mode - Sequence Call
+  synonyms: []
+  category: mixer
+  deck: left
+  action_type: mixer
+  shortcut: ctrl + option + command + `
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30b6
+  canonical: Auto Cue
+  synonyms:
+  - toggle auto cue
+  - turn auto cue on
+  - turn auto cue off
+  - auto cue
+  category: transport
+  deck: left
+  action_type: cue
+  shortcut: command + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30b7
+  canonical: Semitone Up
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: command + S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30b8
+  canonical: Semitone Down
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + option + command + spacebar
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30b9
+  canonical: Key Reset
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + C
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30ba
+  canonical: Key Sync
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: beat_sync
+  shortcut: ctrl + X
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30bb
+  canonical: Pad mode - Keyboard
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + option + command + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30bc
+  canonical: Pad mode - Beat Loop
+  synonyms: []
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: ctrl + option + command + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30bd
+  canonical: 1/64 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + ,
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30be
+  canonical: 64 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + J
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30bf
+  canonical: 128 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30c0
+  canonical: 256 Beat Loop
+  synonyms: []
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + option + command + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30c1
+  canonical: 512 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: shift + command + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30c5
+  canonical: Pad mode - Key Shift
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + option + command + A
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30cf
+  canonical: Memory Loop 10 Active On/Off
+  synonyms: []
+  category: loop
+  deck: left
+  action_type: loop
+  shortcut: ctrl + shift + option + command + return
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30e1
+  canonical: Pad mode - Sample Scratch
+  synonyms: []
+  category: sampler
+  deck: left
+  action_type: sampler
+  shortcut: ctrl + option + command + 6
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30e2
+  canonical: SYNC RATE
+  synonyms: []
+  category: sync_tempo
+  deck: left
+  action_type: beat_sync
+  shortcut: command + -
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 30e3
+  canonical: Active Stem INST
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: ctrl + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30e4
+  canonical: Active Stem VOCAL
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 30e5
+  canonical: Active Stem DRUMS
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3106'
+  canonical: Play/Pause
+  synonyms:
+  - play right deck
+  - play right
+  - start right deck
+  - pause right deck
+  - pause right
+  category: transport
+  deck: right
+  action_type: play_pause
+  shortcut: N
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3107'
+  canonical: Cue
+  synonyms:
+  - cue right deck
+  - set cue on right deck
+  - cue point right
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3108'
+  canonical: Jump Forward
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: command + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3109'
+  canonical: Jump Reverse
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: transport
+  shortcut: command + O
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310a
+  canonical: Loop In
+  synonyms:
+  - set loop in
+  - loop in point
+  - start loop
+  - mark loop start
+  - set loop start here
+  category: loop
+  deck: right
+  action_type: loop_in
+  shortcut: K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310b
+  canonical: Loop Out
+  synonyms:
+  - set loop out
+  - loop out point
+  - end loop
+  - mark loop end
+  - set loop end here
+  category: loop
+  deck: right
+  action_type: loop_out
+  shortcut: L
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310c
+  canonical: Exit/Reloop
+  synonyms:
+  - exit loop
+  - reloop
+  - toggle loop
+  - leave the loop
+  - turn loop off
+  category: loop
+  deck: right
+  action_type: reloop_exit
+  shortcut: ;
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310d
+  canonical: 1/32 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310e
+  canonical: 1/16 Beat Loop
+  synonyms:
+  - 16 beat loop
+  - loop 16 beats
+  - set 16 beat loop
+  - make a 16 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 310f
+  canonical: 1/8 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + B
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3110'
+  canonical: 1/4 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + V
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3111'
+  canonical: 1/2 Beat Loop
+  synonyms:
+  - 1/2 beat loop
+  - loop 1/2 beats
+  - set 1/2 beat loop
+  - make a 1/2 beat loop
+  category: loop
+  deck: right
+  action_type: loop_half
+  shortcut: command + 6
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3112'
+  canonical: 1 Beat Loop
+  synonyms:
+  - 1 beat loop
+  - loop 1 beats
+  - set 1 beat loop
+  - make a 1 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: command + 7
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3113'
+  canonical: 2 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: command + 8
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3114'
+  canonical: 4 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: command + 9
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3115'
+  canonical: 8 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: command + 0
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3116'
+  canonical: 16 Beat Loop
+  synonyms:
+  - 16 beat loop
+  - loop 16 beats
+  - set 16 beat loop
+  - make a 16 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3117'
+  canonical: 32 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + 9
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3118'
+  canonical: Loop /2
+  synonyms:
+  - halve loop
+  - loop half
+  - shrink loop
+  - loop divide two
+  - make loop shorter
+  - reduce loop length
+  category: loop
+  deck: right
+  action_type: loop_half
+  shortcut: shift + K
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3119'
+  canonical: Loop x2
+  synonyms:
+  - double loop
+  - loop double
+  - expand loop
+  - loop times two
+  - make loop longer
+  - stretch loop
+  category: loop
+  deck: right
+  action_type: loop_double
+  shortcut: 'shift + :'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 311a
+  canonical: Next Track
+  synonyms: []
+  category: library
+  deck: right
+  action_type: library
+  shortcut: option + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 311b
+  canonical: Previous Track
+  synonyms: []
+  category: library
+  deck: right
+  action_type: library
+  shortcut: option + Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 311c
+  canonical: Quantize
+  synonyms:
+  - toggle quantize
+  - turn quantize on
+  - turn quantize off
+  - quantize beat
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: command + X
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 311e
+  canonical: Set Hot Cue A
+  synonyms:
+  - set hot cue a right deck
+  - set cue a right deck
+  - set hot cue a deck 2
+  - set hot cue a deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: '6'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 311f
+  canonical: Set Hot Cue B
+  synonyms:
+  - set hot cue b right deck
+  - set cue b right deck
+  - set hot cue b deck 2
+  - set hot cue b deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: '7'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3120'
+  canonical: Set Hot Cue C
+  synonyms:
+  - set hot cue c right deck
+  - set cue c right deck
+  - set hot cue c deck 2
+  - set hot cue c deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: '8'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3121'
+  canonical: Clear Hot Cue A
+  synonyms:
+  - clear hot cue a right deck
+  - delete cue a right deck
+  - clear hot cue a deck 2
+  - clear hot cue a deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + command + 6
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3122'
+  canonical: Clear Hot Cue B
+  synonyms:
+  - clear hot cue b right deck
+  - delete cue b right deck
+  - clear hot cue b deck 2
+  - clear hot cue b deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + command + 7
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3123'
+  canonical: Clear Hot Cue C
+  synonyms:
+  - clear hot cue c right deck
+  - delete cue c right deck
+  - clear hot cue c deck 2
+  - clear hot cue c deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + command + 8
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3124'
+  canonical: Set Memory Cue
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3139'
+  canonical: Call Next Memory Cue
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 313a
+  canonical: Call Previous Memory Cue
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: O
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 313b
+  canonical: Delete Memory Cue
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + O
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3143'
+  canonical: Fine Shift Beatgrid right
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: option + 9
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3144'
+  canonical: Fine Shift Beatgrid left
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: option + 7
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3145'
+  canonical: Shift beatgrid to the center
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: option + 8
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3146'
+  canonical: Expand beat intervals
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: option + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3147'
+  canonical: Shrink beat intervals
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: option + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 314b
+  canonical: BEAT SYNC
+  synonyms:
+  - beat sync
+  - sync
+  - match tempo
+  - sync the beat
+  - lock the beats
+  category: sync_tempo
+  deck: right
+  action_type: beat_sync
+  shortcut: Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 314c
+  canonical: Beat Sync Master
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: beat_sync_master
+  shortcut: shift + Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 314d
+  canonical: Master Tempo
+  synonyms:
+  - master tempo
+  - key lock
+  - pitch lock
+  - lock the key
+  - preserve key
+  category: sync_tempo
+  deck: right
+  action_type: master_tempo
+  shortcut: shift + 0
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 314e
+  canonical: Tempo Reset
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: tempo
+  shortcut: ctrl + option + return
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 314f
+  canonical: Pitch Bend +
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: pitch_bend_plus
+  shortcut: I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3150'
+  canonical: Pitch Bend -
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: pitch_bend_minus
+  shortcut: U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3154'
+  canonical: Set Hot Cue D
+  synonyms:
+  - set hot cue d right deck
+  - set cue d right deck
+  - set hot cue d deck 2
+  - set hot cue d deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: '9'
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3155'
+  canonical: Clear Hot Cue D
+  synonyms:
+  - clear hot cue d right deck
+  - delete cue d right deck
+  - clear hot cue d deck 2
+  - clear hot cue d deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: shift + command + 9
+  safety:
+    destructive: true
+    requires_idle: false
+    confirm_if_playing: true
+    cooldown_ms: 600
+- id: '3156'
+  canonical: Enable/Disable Track Analysis, Key Analysis, and Beatgrid Adjustment.
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: ctrl + option + command + 4
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3157'
+  canonical: Return to the beginning of the track
+  synonyms: []
+  category: library
+  deck: right
+  action_type: library
+  shortcut: shift + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3158'
+  canonical: Slip
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: slip
+  shortcut: ctrl + command + Z
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3159'
+  canonical: Tempo Range
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: tempo
+  shortcut: ctrl + command + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315a
+  canonical: Increase Tempo (small)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: right
+  action_type: tempo_up
+  shortcut: ctrl + command + X
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315b
+  canonical: Increase Tempo (medium)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: right
+  action_type: tempo_up
+  shortcut: shift + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315c
+  canonical: Increase Tempo (large)
+  synonyms:
+  - speed up track
+  - speed it up
+  - go faster
+  - tempo up
+  - increase tempo
+  - nudge tempo up
+  category: sync_tempo
+  deck: right
+  action_type: tempo_up
+  shortcut: ctrl + command + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315d
+  canonical: Decrease Tempo (small)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: right
+  action_type: tempo_down
+  shortcut: ctrl + command + 2
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315e
+  canonical: Decrease Tempo (medium)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: right
+  action_type: tempo_down
+  shortcut: shift + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 315f
+  canonical: Decrease Tempo (large)
+  synonyms:
+  - slow down track
+  - slow it down
+  - go slower
+  - tempo down
+  - decrease tempo
+  - nudge tempo down
+  category: sync_tempo
+  deck: right
+  action_type: tempo_down
+  shortcut: ctrl + option + D
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3160'
+  canonical: Reverse
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: transport
+  shortcut: ctrl + option + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3161'
+  canonical: Slip Reverse
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: slip
+  shortcut: J
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3162'
+  canonical: Vinyl mode
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3163'
+  canonical: Pad mode - Hot Cue
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + command + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3164'
+  canonical: Pad mode - Pad FX 1
+  synonyms: []
+  category: effects
+  deck: right
+  action_type: effects
+  shortcut: ctrl + command + Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3165'
+  canonical: Pad mode - Pad FX 2
+  synonyms: []
+  category: effects
+  deck: right
+  action_type: effects
+  shortcut: ctrl + command + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3166'
+  canonical: Pad mode - Beat Jump
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + command + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3167'
+  canonical: Pad mode - Sampler
+  synonyms: []
+  category: sampler
+  deck: right
+  action_type: sampler
+  shortcut: ctrl + command + 9
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3169'
+  canonical: Pad mode - Slicer
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + command + 4
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 316a
+  canonical: Pad mode - Slicer Loop
+  synonyms: []
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + command + 5
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 317f
+  canonical: Set Hot Cue E
+  synonyms:
+  - set hot cue e right deck
+  - set cue e right deck
+  - set hot cue e deck 2
+  - set hot cue e deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3180'
+  canonical: Set Hot Cue F
+  synonyms:
+  - set hot cue f right deck
+  - set cue f right deck
+  - set hot cue f deck 2
+  - set hot cue f deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3181'
+  canonical: Set Hot Cue G
+  synonyms:
+  - set hot cue g right deck
+  - set cue g right deck
+  - set hot cue g deck 2
+  - set hot cue g deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3182'
+  canonical: Set Hot Cue H
+  synonyms:
+  - set hot cue h right deck
+  - set cue h right deck
+  - set hot cue h deck 2
+  - set hot cue h deck two
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3183'
+  canonical: Set Hot Cue I
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + J
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3184'
+  canonical: Set Hot Cue J
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + G
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3185'
+  canonical: Set Hot Cue K
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + T
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3186'
+  canonical: Set Hot Cue L
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + C
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3187'
+  canonical: Set Hot Cue M
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3188'
+  canonical: Set Hot Cue N
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + V
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3189'
+  canonical: Set Hot Cue O
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + 7
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 318a
+  canonical: Set Hot Cue P
+  synonyms: []
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: ctrl + shift + option + command + [
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: '3197'
+  canonical: Forward 1/2 beat
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + C
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3198'
+  canonical: Forward 1 beat
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + X
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: '3199'
+  canonical: Forward 2 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + ]
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319a
+  canonical: Forward 4 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + [
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319b
+  canonical: Forward 8 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + \
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319c
+  canonical: Forward 16 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + M
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319d
+  canonical: Forward 8 bars
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + N
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319e
+  canonical: Backward 1/2 beat
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + O
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 319f
+  canonical: Backward 1 beat
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + J
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a0
+  canonical: Backward 2 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + return
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a1
+  canonical: Backward 4 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a2
+  canonical: Backward 8 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + I
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a3
+  canonical: Backward 16 beats
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a4
+  canonical: Backward 8 bars
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + /
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a5
+  canonical: Auto Beat Loop ON/OFF
+  synonyms: []
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: shift + L
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31a6
+  canonical: Metronome On/Off
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + command + E
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a7
+  canonical: Metronome Volume
+  synonyms: []
+  category: mixer
+  deck: right
+  action_type: mixer
+  shortcut: option + 6
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a8
+  canonical: Shift Beatgrid right
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: ctrl + option + command + S
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31a9
+  canonical: Shift Beatgrid left
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: ctrl + option + command + 7
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31aa
+  canonical: Large expand beat intervals
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: beatgrid_edit
+  shortcut: ctrl + option + command + C
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31ac
+  canonical: Halve the BPM value
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: tempo
+  shortcut: ctrl + option + command + 5
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31ad
+  canonical: Double the BPM value
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: tempo
+  shortcut: ctrl + option + command + 3
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31af
+  canonical: Show GRID Panel
+  synonyms: []
+  category: grid
+  deck: right
+  action_type: grid
+  shortcut: option + ;
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31b5
+  canonical: Pad mode - Sequence Call
+  synonyms: []
+  category: mixer
+  deck: right
+  action_type: mixer
+  shortcut: ctrl + command + 3
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31b6
+  canonical: Auto Cue
+  synonyms:
+  - toggle auto cue
+  - turn auto cue on
+  - turn auto cue off
+  - auto cue
+  category: transport
+  deck: right
+  action_type: cue
+  shortcut: command + W
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31b7
+  canonical: Semitone Up
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + \
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31b8
+  canonical: Semitone Down
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + [
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31b9
+  canonical: Key Reset
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + '
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31ba
+  canonical: Key Sync
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: beat_sync
+  shortcut: ctrl + option + P
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31bb
+  canonical: Pad mode - Keyboard
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + command + H
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31bc
+  canonical: Pad mode - Beat Loop
+  synonyms: []
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + command + -
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31bd
+  canonical: 1/64 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + Y
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31be
+  canonical: 64 Beat Loop
+  synonyms:
+  - 4 beat loop
+  - loop 4 beats
+  - set 4 beat loop
+  - make a 4 beat loop
+  - one bar loop
+  - bar loop
+  - loop one bar
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + '
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31bf
+  canonical: 128 Beat Loop
+  synonyms:
+  - 8 beat loop
+  - loop 8 beats
+  - set 8 beat loop
+  - make a 8 beat loop
+  - two bar loop
+  - loop two bars
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31c0
+  canonical: 256 Beat Loop
+  synonyms: []
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + ;
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31c1
+  canonical: 512 Beat Loop
+  synonyms:
+  - 2 beat loop
+  - loop 2 beats
+  - set 2 beat loop
+  - make a 2 beat loop
+  category: loop
+  deck: right
+  action_type: loop
+  shortcut: ctrl + option + command + R
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31c5
+  canonical: Pad mode - Key Shift
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + command + U
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31e1
+  canonical: Pad mode - Sample Scratch
+  synonyms: []
+  category: sampler
+  deck: right
+  action_type: sampler
+  shortcut: ctrl + command + 6
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31e2
+  canonical: SYNC RATE
+  synonyms: []
+  category: sync_tempo
+  deck: right
+  action_type: beat_sync
+  shortcut: ctrl + command + F
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 500
+- id: 31e3
+  canonical: Active Stem INST
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + N
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31e4
+  canonical: Active Stem VOCAL
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + =
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: 31e5
+  canonical: Active Stem DRUMS
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: ctrl + option + -
+  safety:
+    destructive: false
+    requires_idle: false
+    confirm_if_playing: false
+    cooldown_ms: 800
+- id: b129
+  canonical: Load track to Deck 1
+  synonyms:
+  - load left deck
+  - load track to left deck
+  - send to left deck
+  - prep left deck
+  - put this on left
+  category: library
+  deck: left
+  action_type: library_load
+  shortcut: shift + cursor left
+  safety:
+    destructive: false
+    requires_idle: true
+    confirm_if_playing: true
+    cooldown_ms: 2500
+- id: b12a
+  canonical: Load track to Deck 2
+  synonyms:
+  - load right deck
+  - load track to right deck
+  - send to right deck
+  - prep right deck
+  - put this on right
+  category: library
+  deck: right
+  action_type: library_load
+  shortcut: shift + cursor right
+  safety:
+    destructive: false
+    requires_idle: true
+    confirm_if_playing: true
+    cooldown_ms: 2500
+- id: b12f
+  canonical: Instant Doubles Deck 1
+  synonyms: []
+  category: navigation
+  deck: left
+  action_type: navigation
+  shortcut: shift + command + cursor left
+  safety:
+    destructive: false
+    requires_idle: true
+    confirm_if_playing: true
+    cooldown_ms: 800
+- id: b130
+  canonical: Instant Doubles Deck 2
+  synonyms: []
+  category: navigation
+  deck: right
+  action_type: navigation
+  shortcut: shift + command + cursor right
+  safety:
+    destructive: false
+    requires_idle: true
+    confirm_if_playing: true
+    cooldown_ms: 800

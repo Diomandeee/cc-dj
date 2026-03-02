@@ -1,0 +1,23 @@
+[package]
+name = "cc-dj-live"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CLI entry point for cc-dj voice-to-Rekordbox control"
+
+[[bin]]
+name = "cc-dj"
+path = "src/main.rs"
+
+[dependencies]
+cc-dj-types = { workspace = true }
+cc-dj-voice = { workspace = true }
+cc-dj-control = { workspace = true }
+
+tokio = { workspace = true }
+clap = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }

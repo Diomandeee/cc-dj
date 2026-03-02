@@ -1,0 +1,39 @@
+[package]
+name = "cc-gemini"
+version = "0.1.0"
+edition = "2021"
+authors = ["Mohamed Diomande"]
+description = "Production-grade Gemini API client with rate limiting, cost tracking, and retry logic"
+license = "MIT"
+repository = "https://github.com/diomandeee/cc-dj"
+keywords = ["gemini", "api", "multimodal", "ai", "rate-limiting"]
+categories = ["api-bindings", "asynchronous"]
+
+[lib]
+name = "cc_gemini"
+crate-type = ["rlib"]
+
+[features]
+default = ["rustls"]
+rustls = ["reqwest/rustls-tls", "tokio-tungstenite/rustls-tls-webpki-roots"]
+native-tls = ["reqwest/native-tls", "tokio-tungstenite/native-tls"]
+live = []
+
+[dependencies]
+tokio = { version = "1", features = ["sync", "time", "macros"] }
+reqwest = { version = "0.11", default-features = false, features = ["json"] }
+tokio-tungstenite = { version = "0.21", default-features = false, features = ["connect"] }
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"
+tracing = "0.1"
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde"] }
+rand = "0.8"
+url = "2.5"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+tokio-test = "0.4"
+approx = "0.5"
