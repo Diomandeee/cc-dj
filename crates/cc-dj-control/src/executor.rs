@@ -50,12 +50,14 @@ impl ChainExecutor {
         Ok(())
     }
 
-    /// Executes actions in parallel.
-    pub async fn execute_parallel(&self, actions: &[Action], bridge: &dyn DJBridge) -> Result<()> {
-        info!("Executing {} actions in parallel", actions.len());
+    /// Executes a batch of actions sequentially without inter-action delays.
+    ///
+    /// Despite the batch naming, actions are executed one-by-one because the
+    /// bridge holds hardware resources (MIDI port, keyboard automation) that
+    /// are not safe to drive concurrently.
+    pub async fn execute_batch(&self, actions: &[Action], bridge: &dyn DJBridge) -> Result<()> {
+        info!("Executing batch of {} actions", actions.len());
 
-        // For now, execute sequentially without delays
-        // True parallel execution would need Arc<dyn DJBridge>
         for action in actions {
             bridge.execute(action).await?;
         }
@@ -77,8 +79,32 @@ mod tests {
     use cc_dj_types::Tier;
 
     #[tokio::test]
-    async fn test_chain_executor() {
+    async fn test_chain_executes_all_actions_in_order() {
         let executor = ChainExecutor::new().with_delay(10);
+        let bridge = RekordboxBridge::new(None).with_simulation();
+
+        let actions = vec![
+            Action::new("PLAY_A", Tier::Transport),
+            Action::new("SYNC_A", Tier::Transport),
+            Action::new("CUE_A", Tier::Transport),
+        ];
+
+        let result = executor.execute_chain(&actions, &bridge).await;
+        assert!(result.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_chain_empty_actions() {
+        let executor = ChainExecutor::new();
+        let bridge = RekordboxBridge::new(None).with_simulation();
+
+        // Empty chain should succeed without doing anything
+        assert!(executor.execute_chain(&[], &bridge).await.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_batch_executes_without_delays() {
+        let executor = ChainExecutor::new().with_delay(1000); // large delay
         let bridge = RekordboxBridge::new(None).with_simulation();
 
         let actions = vec![
@@ -86,7 +112,13 @@ mod tests {
             Action::new("SYNC_A", Tier::Transport),
         ];
 
-        let result = executor.execute_chain(&actions, &bridge).await;
+        // Batch should complete quickly (no inter-action delays)
+        let start = std::time::Instant::now();
+        let result = executor.execute_batch(&actions, &bridge).await;
+        let elapsed = start.elapsed();
+
         assert!(result.is_ok());
+        // Should take less than 500ms (no 1000ms delays between actions)
+        assert!(elapsed.as_millis() < 500);
     }
 }

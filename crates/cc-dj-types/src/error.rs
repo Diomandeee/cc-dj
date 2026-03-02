@@ -33,7 +33,7 @@ pub enum DJError {
 
     /// YAML parsing error.
     #[error("YAML error: {0}")]
-    YamlError(#[from] serde_yaml::Error),
+    YamlError(#[from] serde_yml::Error),
 
     /// JSON parsing error.
     #[error("JSON error: {0}")]

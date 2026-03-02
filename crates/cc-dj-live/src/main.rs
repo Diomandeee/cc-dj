@@ -31,8 +31,8 @@ struct Args {
     commands: String,
 
     /// Override DJ software (rekordbox / serato).
-    #[arg(long)]
-    software: Option<String>,
+    #[arg(long, value_enum)]
+    software: Option<cc_dj_types::DJSoftware>,
 
     /// Simulation mode — log actions without sending keystrokes.
     #[arg(long)]
@@ -58,8 +58,8 @@ async fn main() -> Result<()> {
     // Load config
     let mut config = DJConfig::from_file(&args.config).context("Failed to load DJ config")?;
 
-    if let Some(ref sw) = args.software {
-        config.software = sw.clone();
+    if let Some(sw) = args.software {
+        config.software = sw;
     }
 
     info!("Software: {}", config.software);

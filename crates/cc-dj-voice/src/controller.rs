@@ -38,6 +38,8 @@ pub struct VoiceController {
     audio_task: Option<tokio::task::JoinHandle<()>>,
     /// Task that receives transcriptions and invokes commands.
     transcription_task: Option<tokio::task::JoinHandle<()>>,
+    /// Active Gemini Live session (for graceful shutdown).
+    session: Option<Arc<LiveSession>>,
 }
 
 impl VoiceController {
@@ -56,6 +58,7 @@ impl VoiceController {
             capture_handle: None,
             audio_task: None,
             transcription_task: None,
+            session: None,
         }
     }
 
@@ -115,9 +118,12 @@ impl VoiceController {
         }
         info!("Gemini Live session ready");
 
+        // H2: Store session for graceful shutdown
+        self.session = Some(session.clone());
+
         // --- Mic capture ---
         self.shutdown.store(false, Ordering::SeqCst);
-        let (audio_tx, mut audio_rx) = tokio::sync::mpsc::channel::<Vec<u8>>(64);
+        let (audio_tx, mut audio_rx) = tokio::sync::mpsc::channel::<Vec<u8>>(256);
 
         let mic_handle = crate::mic::start_mic_capture(self.shutdown.clone(), audio_tx)
             .map_err(|e| DJError::voice(format!("Mic init failed: {}", e)))?;
@@ -163,7 +169,7 @@ impl VoiceController {
                     info!("[VOICE] Heard: \"{}\"", text);
 
                     let commands = {
-                        let processor = intent_processor.read().unwrap();
+                        let processor = intent_processor.read().unwrap_or_else(|e| e.into_inner());
                         processor.process(text)
                     };
 
@@ -177,7 +183,8 @@ impl VoiceController {
 
                 // Warn on GoAway (session nearing expiry)
                 if msg.go_away.is_some() {
-                    warn!("Gemini GoAway — session expiring soon");
+                    warn!("Gemini GoAway — session expiring soon, reconnection needed");
+                    // TODO(v0.2): Implement automatic session reconnection with resumption handle
                 }
             }
             debug!("Transcription task exited");
@@ -199,6 +206,13 @@ impl VoiceController {
         }
         if let Some(task) = self.transcription_task.take() {
             task.abort();
+        }
+
+        // H2: Close Gemini session gracefully
+        if let Some(session) = self.session.take() {
+            if let Err(e) = session.close().await {
+                warn!("Failed to close Gemini session: {}", e);
+            }
         }
 
         // Join mic capture thread
@@ -223,7 +237,11 @@ impl VoiceController {
     pub fn process_text(&self, text: &str) -> Vec<Command> {
         debug!("Processing text: {}", text);
 
-        let commands = self.intent_processor.read().unwrap().process(text);
+        let commands = self
+            .intent_processor
+            .read()
+            .unwrap_or_else(|e| e.into_inner())
+            .process(text);
 
         // Invoke callback for each recognized command
         if let Some(ref callback) = self.command_callback {

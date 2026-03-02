@@ -611,7 +611,7 @@ mod tests {
         // Text estimation
         let text = "Hello, world!"; // 13 characters
         let tokens = estimation::estimate_text_tokens(text);
-        assert!(tokens >= 3 && tokens <= 5);
+        assert!((3..=5).contains(&tokens));
 
         // Image estimation
         let tokens = estimation::estimate_image_tokens(1024, 1024);

@@ -1,5 +1,11 @@
 /target
 **/*.rs.bk
 *.pdb
-.env
 .DS_Store
+
+# Secrets / credentials
+.env
+.env.*
+*.pem
+*.key
+configs/local.yaml

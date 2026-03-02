@@ -60,7 +60,7 @@ impl IntentProcessor {
                 category: cc_dj_types::CommandCategory::Unknown,
                 deck: None,
                 action_type: cc_dj_types::ActionType::Unknown,
-                shortcut: cc_dj_types::Shortcut::Key(String::new()),
+                shortcut: cc_dj_types::Shortcut::Key { key: String::new() },
                 safety: Default::default(),
             }];
         }

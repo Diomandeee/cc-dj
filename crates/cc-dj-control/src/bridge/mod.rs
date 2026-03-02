@@ -6,8 +6,10 @@ mod serato;
 pub use rekordbox::RekordboxBridge;
 pub use serato::SeratoBridge;
 
+use std::sync::Arc;
+
 use async_trait::async_trait;
-use cc_dj_types::{Action, DJConfig, Result};
+use cc_dj_types::{Action, DJConfig, DJSoftware, Result};
 
 /// Trait for DJ software bridges.
 ///
@@ -33,9 +35,9 @@ pub trait DJBridge: Send + Sync {
 }
 
 /// Creates a bridge for the configured DJ software.
-pub fn create_bridge(config: &DJConfig) -> Box<dyn DJBridge> {
-    match config.software.as_str() {
-        "serato" => Box::new(SeratoBridge::new(config.serato.clone())),
-        _ => Box::new(RekordboxBridge::new(config.rekordbox.clone())),
+pub fn create_bridge(config: &DJConfig) -> Arc<dyn DJBridge> {
+    match config.software {
+        DJSoftware::Serato => Arc::new(SeratoBridge::new(config.serato.clone())),
+        DJSoftware::Rekordbox => Arc::new(RekordboxBridge::new(config.rekordbox.clone())),
     }
 }

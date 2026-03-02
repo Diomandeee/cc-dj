@@ -28,7 +28,7 @@ pub mod state;
 pub use action::{Action, ActionSpace, Tier};
 pub use command::{ActionType, Command, CommandCatalog, CommandCategory, Deck, Shortcut};
 pub use config::{
-    ActionMapping, DJConfig, SafetyConfig, SequenceStep, SoftwareConfig, VoiceConfig,
+    ActionMapping, DJConfig, DJSoftware, SafetyConfig, SequenceStep, SoftwareConfig, VoiceConfig,
 };
 pub use error::{DJError, Result};
 pub use state::{DeckState, MixerState, SessionState};

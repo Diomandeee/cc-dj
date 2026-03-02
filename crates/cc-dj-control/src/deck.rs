@@ -16,7 +16,7 @@ pub struct DeckController {
     /// Action space.
     action_space: ActionSpace,
     /// DJ software bridge.
-    bridge: Box<dyn DJBridge>,
+    bridge: Arc<dyn DJBridge>,
     /// Action scheduler.
     scheduler: ActionScheduler,
     /// Current deck states.
@@ -82,7 +82,7 @@ impl DeckController {
             }
         }
 
-        // Execute immediately
+        // Execute via bridge (cloneable Arc allows concurrent use)
         self.bridge.execute(&action).await?;
 
         // Record execution for cooldown tracking
@@ -98,22 +98,17 @@ impl DeckController {
 
         // Check for scheduled actions
         if let Some(action) = self.scheduler.poll(beat) {
-            let bridge = &self.bridge;
-            let action_space = &mut self.action_space;
+            let bridge = self.bridge.clone();
             let action_name = action.name.clone();
 
-            tokio::spawn({
-                let action = action.clone();
-                let bridge_name = bridge.name().to_string();
-                async move {
-                    debug!(
-                        "Executing scheduled action: {} via {}",
-                        action.name, bridge_name
-                    );
+            tokio::spawn(async move {
+                debug!("Executing scheduled action: {}", action.name);
+                if let Err(e) = bridge.execute(&action).await {
+                    tracing::warn!("Scheduled action {} failed: {}", action.name, e);
                 }
             });
 
-            action_space.record_execution(&action_name, beat);
+            self.action_space.record_execution(&action_name, beat);
         }
     }
 

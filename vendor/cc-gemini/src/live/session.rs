@@ -21,6 +21,15 @@ use super::messages::{
     BidiGenerateContentToolResponse, ClientMessage, ServerMessage,
 };
 
+/// Sanitize connection error messages to prevent API key leakage.
+fn sanitize_error_message(msg: &str) -> String {
+    if let Some(idx) = msg.find("key=") {
+        format!("{}key=REDACTED", &msg[..idx])
+    } else {
+        msg.to_string()
+    }
+}
+
 /// WebSocket connection type alias.
 type WsStream = WebSocketStream<MaybeTlsStream<tokio::net::TcpStream>>;
 /// WebSocket sender type alias.
@@ -136,7 +145,8 @@ impl LiveSession {
             self.api_key
         );
 
-        let url = Url::parse(&ws_url)
+        // Validate URL format
+        let _url = Url::parse(&ws_url)
             .map_err(|e| LiveError::ConfigError(format!("Invalid WebSocket URL: {}", e)))?;
 
         // Update state
@@ -145,11 +155,11 @@ impl LiveSession {
             *state = SessionState::Connecting;
         }
 
-        // Connect to WebSocket
+        // Connect to WebSocket (pass as &str — tokio-tungstenite 0.24+ accepts string types)
         debug!("Connecting to Live API...");
-        let (ws_stream, _response) = connect_async(url)
-            .await
-            .map_err(|e| LiveError::connection_failed(e.to_string(), true))?;
+        let (ws_stream, _response) = connect_async(&ws_url).await.map_err(|e| {
+            LiveError::connection_failed(sanitize_error_message(&e.to_string()), true)
+        })?;
 
         info!("Connected to Live API");
         callbacks.on_open();
@@ -202,10 +212,9 @@ impl LiveSession {
 
         let mut sender_lock = self.sender.lock().await;
         if let Some(ref mut sender) = *sender_lock {
-            sender
-                .send(Message::Text(json))
-                .await
-                .map_err(|e| LiveError::connection_failed(e.to_string(), true))?;
+            sender.send(Message::Text(json)).await.map_err(|e| {
+                LiveError::connection_failed(sanitize_error_message(&e.to_string()), true)
+            })?;
             Ok(())
         } else {
             Err(LiveError::SessionExpired)
@@ -402,8 +411,14 @@ impl LiveSession {
                     // Raw frame, usually not received
                 }
                 Err(e) => {
-                    error!("WebSocket error: {}", e);
-                    callbacks.on_error(LiveError::connection_failed(e.to_string(), true));
+                    error!(
+                        "WebSocket error: {}",
+                        sanitize_error_message(&e.to_string())
+                    );
+                    callbacks.on_error(LiveError::connection_failed(
+                        sanitize_error_message(&e.to_string()),
+                        true,
+                    ));
 
                     let mut s = state.write().await;
                     *s = SessionState::Closed;

@@ -154,11 +154,13 @@ mod tests {
     fn test_transition_advisor() {
         let advisor = TransitionAdvisor::new();
 
-        let mut outgoing_state = DeckState::default();
-        outgoing_state.position_secs = 180.0;
-        outgoing_state.duration_secs = 240.0;
-        outgoing_state.bpm = 128.0;
-        outgoing_state.is_playing = true;
+        let outgoing_state = DeckState {
+            position_secs: 180.0,
+            duration_secs: 240.0,
+            bpm: 128.0,
+            is_playing: true,
+            ..DeckState::default()
+        };
 
         let outgoing_analysis = TrackAnalysis::default();
         let incoming_analysis = TrackAnalysis::default();
@@ -175,9 +177,11 @@ mod tests {
     fn test_should_transition() {
         let advisor = TransitionAdvisor::new();
 
-        let mut state = DeckState::default();
-        state.position_secs = 170.0;
-        state.duration_secs = 180.0;
+        let state = DeckState {
+            position_secs: 170.0,
+            duration_secs: 180.0,
+            ..DeckState::default()
+        };
 
         assert!(advisor.should_transition(&state, 15.0));
         assert!(!advisor.should_transition(&state, 5.0));

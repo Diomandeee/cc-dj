@@ -1,11 +1,31 @@
 //! Rekordbox bridge implementation.
 
 use async_trait::async_trait;
-use cc_dj_types::{Action, Result, SoftwareConfig};
+use cc_dj_types::{Action, DJError, Result, SoftwareConfig};
 use midir::{MidiOutput, MidiOutputConnection};
-use std::process::Command;
-use std::sync::Mutex;
+use tokio::sync::Mutex;
 use tracing::{debug, info, warn};
+
+/// Validates that a key string is safe for AppleScript injection.
+///
+/// Allows only short ASCII alphanumeric or punctuation strings to prevent
+/// command injection via crafted key values.
+fn validate_key(key: &str) -> Result<()> {
+    let valid = !key.is_empty()
+        && key.len() <= 2
+        && key
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || c.is_ascii_punctuation());
+    if !valid {
+        return Err(DJError::execution(format!("Invalid key value: {:?}", key)));
+    }
+    Ok(())
+}
+
+/// Escapes double-quote characters in a string for safe AppleScript embedding.
+fn escape_applescript(s: &str) -> String {
+    s.replace('\\', "\\\\").replace('"', "\\\"")
+}
 
 use super::DJBridge;
 
@@ -46,8 +66,8 @@ impl RekordboxBridge {
     }
 
     /// Initialize MIDI output connection if not already connected.
-    fn ensure_midi_connection(&self) -> Result<()> {
-        let mut midi_out = self.midi_out.lock().unwrap();
+    async fn ensure_midi_connection(&self) -> Result<()> {
+        let mut midi_out = self.midi_out.lock().await;
         if midi_out.is_some() {
             return Ok(());
         }
@@ -145,27 +165,30 @@ impl DJBridge for RekordboxBridge {
         // Check if Rekordbox is running using pgrep on macOS/Linux
         #[cfg(target_os = "macos")]
         {
-            Command::new("pgrep")
+            tokio::process::Command::new("pgrep")
                 .args(["-x", "rekordbox"])
                 .output()
+                .await
                 .map(|o| o.status.success())
                 .unwrap_or(false)
         }
 
         #[cfg(target_os = "linux")]
         {
-            Command::new("pgrep")
+            tokio::process::Command::new("pgrep")
                 .args(["-x", "rekordbox"])
                 .output()
+                .await
                 .map(|o| o.status.success())
                 .unwrap_or(false)
         }
 
         #[cfg(target_os = "windows")]
         {
-            Command::new("tasklist")
+            tokio::process::Command::new("tasklist")
                 .args(["/FI", "IMAGENAME eq rekordbox.exe"])
                 .output()
+                .await
                 .map(|o| String::from_utf8_lossy(&o.stdout).contains("rekordbox.exe"))
                 .unwrap_or(false)
         }
@@ -185,6 +208,9 @@ impl DJBridge for RekordboxBridge {
             );
             return Ok(());
         }
+
+        // C1: Validate key to prevent AppleScript injection
+        validate_key(key)?;
 
         debug!("Sending key: {} with modifiers: {:?}", key, modifiers);
 
@@ -207,32 +233,33 @@ impl DJBridge for RekordboxBridge {
                 using_clause.push_str(m);
             }
 
-            let script = if using_clause.is_empty() {
+            let safe_key = escape_applescript(&key.to_lowercase());
+
+            // M9: Activate Rekordbox before sending keystroke
+            let activate = r#"tell application "rekordbox" to activate"#;
+            let keystroke = if using_clause.is_empty() {
                 format!(
                     r#"tell application "System Events" to keystroke "{}""#,
-                    key.to_lowercase()
+                    safe_key
                 )
             } else {
                 format!(
                     r#"tell application "System Events" to keystroke "{}" using {{{}}}"#,
-                    key.to_lowercase(),
-                    using_clause
+                    safe_key, using_clause
                 )
             };
 
-            let output = Command::new("osascript")
+            let script = format!("{}\n{}", activate, keystroke);
+
+            let output = tokio::process::Command::new("osascript")
                 .args(["-e", &script])
                 .output()
-                .map_err(|e| {
-                    cc_dj_types::DJError::execution(format!("Failed to run osascript: {}", e))
-                })?;
+                .await
+                .map_err(|e| DJError::execution(format!("Failed to run osascript: {}", e)))?;
 
             if !output.status.success() {
                 let stderr = String::from_utf8_lossy(&output.stderr);
-                return Err(cc_dj_types::DJError::execution(format!(
-                    "osascript failed: {}",
-                    stderr
-                )));
+                return Err(DJError::execution(format!("osascript failed: {}", stderr)));
             }
 
             debug!("Key sent successfully via osascript");
@@ -242,7 +269,7 @@ impl DJBridge for RekordboxBridge {
         #[cfg(not(target_os = "macos"))]
         {
             warn!("Keyboard automation not implemented for this platform");
-            Err(cc_dj_types::DJError::execution(
+            Err(DJError::execution(
                 "Keyboard automation not supported on this platform. Use simulation mode for testing."
             ))
         }
@@ -263,7 +290,7 @@ impl DJBridge for RekordboxBridge {
         );
 
         // Ensure MIDI connection is established
-        self.ensure_midi_connection()?;
+        self.ensure_midi_connection().await?;
 
         // Build MIDI Note On message
         // Status byte: 0x90 + channel (Note On)
@@ -271,7 +298,7 @@ impl DJBridge for RekordboxBridge {
         let message = [status, note & 0x7F, velocity & 0x7F];
 
         // Send the MIDI message
-        let mut midi_out = self.midi_out.lock().unwrap();
+        let mut midi_out = self.midi_out.lock().await;
         if let Some(ref mut conn) = *midi_out {
             conn.send(&message).map_err(|e| {
                 cc_dj_types::DJError::midi(format!("Failed to send MIDI message: {}", e))
@@ -292,18 +319,60 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_rekordbox_bridge() {
+    async fn test_rekordbox_bridge_simulation() {
         let bridge = RekordboxBridge::new(None).with_simulation();
         assert_eq!(bridge.name(), "Rekordbox");
         assert!(bridge.is_available().await);
+
+        // Simulation mode should execute without errors for any action
+        let action = Action::new("PLAY_A", cc_dj_types::Tier::Transport);
+        assert!(bridge.execute(&action).await.is_ok());
+
+        // send_key in simulation should succeed regardless of key
+        assert!(bridge.send_key("Z", &[]).await.is_ok());
+        assert!(bridge.send_key("Z", &["shift", "cmd"]).await.is_ok());
+
+        // send_midi in simulation should succeed
+        assert!(bridge.send_midi(0, 60, 127).await.is_ok());
     }
 
     #[tokio::test]
-    async fn test_execute_action() {
-        let bridge = RekordboxBridge::new(None).with_simulation();
+    async fn test_execute_with_action_mapping() {
+        use cc_dj_types::{ActionMapping, SoftwareConfig};
+        use std::collections::HashMap;
+
+        let mut map = HashMap::new();
+        map.insert(
+            "PLAY_A".to_string(),
+            ActionMapping::Key {
+                key: "Z".to_string(),
+                modifiers: vec![],
+            },
+        );
+
+        let config = SoftwareConfig {
+            mode: "keyboard".to_string(),
+            midi_port: None,
+            map,
+        };
+
+        let bridge = RekordboxBridge::new(Some(config)).with_simulation();
         let action = Action::new("PLAY_A", cc_dj_types::Tier::Transport);
 
-        let result = bridge.execute(&action).await;
-        assert!(result.is_ok());
+        // Should resolve the mapping and execute in simulation
+        assert!(bridge.execute(&action).await.is_ok());
+    }
+
+    #[test]
+    fn test_key_validation() {
+        // Valid keys
+        assert!(validate_key("Z").is_ok());
+        assert!(validate_key("1").is_ok());
+        assert!(validate_key(",").is_ok());
+
+        // Invalid keys — injection attempts
+        assert!(validate_key("").is_err());
+        assert!(validate_key("abc").is_err()); // too long
+        assert!(validate_key("Z\" & do shell script \"evil").is_err());
     }
 }

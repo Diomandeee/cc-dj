@@ -4,12 +4,32 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::Path;
 
+/// Supported DJ software backends.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, clap::ValueEnum)]
+#[serde(rename_all = "lowercase")]
+pub enum DJSoftware {
+    /// Pioneer Rekordbox.
+    #[default]
+    Rekordbox,
+    /// Serato DJ.
+    Serato,
+}
+
+impl std::fmt::Display for DJSoftware {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            DJSoftware::Rekordbox => write!(f, "rekordbox"),
+            DJSoftware::Serato => write!(f, "serato"),
+        }
+    }
+}
+
 /// Main DJ agent configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DJConfig {
-    /// DJ software selection ("rekordbox" or "serato").
-    #[serde(default = "default_software")]
-    pub software: String,
+    /// DJ software selection.
+    #[serde(default)]
+    pub software: DJSoftware,
 
     /// Quantization window in degrees.
     #[serde(default = "default_quant_window")]
@@ -48,10 +68,6 @@ pub struct DJConfig {
     pub serato: Option<SoftwareConfig>,
 }
 
-fn default_software() -> String {
-    "rekordbox".to_string()
-}
-
 fn default_quant_window() -> f64 {
     15.0
 }
@@ -63,7 +79,7 @@ fn default_tiers() -> Vec<u8> {
 impl Default for DJConfig {
     fn default() -> Self {
         Self {
-            software: default_software(),
+            software: DJSoftware::default(),
             quant_window_deg: default_quant_window(),
             cooldown_beats: HashMap::new(),
             tiers_enabled: default_tiers(),
@@ -91,16 +107,15 @@ impl DJConfig {
             dj: DJConfig,
         }
 
-        let file: DJConfigFile = serde_yaml::from_str(yaml)?;
+        let file: DJConfigFile = serde_yml::from_str(yaml)?;
         Ok(file.dj)
     }
 
     /// Returns the active software config.
     pub fn software_config(&self) -> Option<&SoftwareConfig> {
-        match self.software.as_str() {
-            "rekordbox" => self.rekordbox.as_ref(),
-            "serato" => self.serato.as_ref(),
-            _ => None,
+        match self.software {
+            DJSoftware::Rekordbox => self.rekordbox.as_ref(),
+            DJSoftware::Serato => self.serato.as_ref(),
         }
     }
 }
@@ -207,6 +222,10 @@ impl Default for VoiceConfig {
 }
 
 /// Reflex policy configuration (frame-rate continuous controls).
+///
+/// Reserved for future gesture-driven RL integration. Fields are deserialized
+/// from config but not yet consumed by the runtime.
+#[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ReflexConfig {
     /// Filter cutoff frequency range [min, max] Hz.
@@ -250,6 +269,10 @@ impl Default for ReflexConfig {
 }
 
 /// Reward weights for reinforcement learning.
+///
+/// Reserved for future RL reward shaping. Fields are deserialized from config
+/// but not yet consumed by the training loop.
+#[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RewardConfig {
     /// Phase alignment weight.
@@ -387,7 +410,7 @@ mod tests {
     #[test]
     fn test_default_config() {
         let config = DJConfig::default();
-        assert_eq!(config.software, "rekordbox");
+        assert_eq!(config.software, DJSoftware::Rekordbox);
         assert_eq!(config.quant_window_deg, 15.0);
         assert!(config.safety.lock_playing_deck);
     }
@@ -407,7 +430,7 @@ dj:
 "#;
 
         let config = DJConfig::from_yaml(yaml).unwrap();
-        assert_eq!(config.software, "serato");
+        assert_eq!(config.software, DJSoftware::Serato);
         assert_eq!(config.quant_window_deg, 20.0);
         assert!(config.voice.enabled);
     }

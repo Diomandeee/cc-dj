@@ -172,17 +172,21 @@ pub enum ActionType {
 }
 
 /// Keyboard shortcut or MIDI mapping.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
+///
+/// Supports both bare strings (backward compat: `shortcut: Z`) and
+/// tagged objects (`shortcut: { type: key, key: Z }`).
+#[derive(Debug, Clone, Serialize)]
 pub enum Shortcut {
     /// Simple keyboard key.
-    Key(String),
+    Key {
+        /// The key to press.
+        key: String,
+    },
     /// Key with modifiers.
     KeyCombo {
         /// The main key.
         key: String,
         /// Modifier keys (shift, ctrl, alt, cmd).
-        #[serde(default)]
         modifiers: Vec<Modifier>,
     },
     /// Sequence of keys.
@@ -197,9 +201,82 @@ pub enum Shortcut {
         /// Note or CC number.
         note: u8,
         /// Velocity or value.
+        velocity: u8,
+    },
+}
+
+/// Tagged shortcut format for structured YAML/JSON.
+#[derive(Deserialize)]
+#[serde(tag = "type", rename_all = "snake_case")]
+enum TaggedShortcut {
+    Key {
+        key: String,
+    },
+    #[serde(alias = "key_combo")]
+    KeyCombo {
+        key: String,
+        #[serde(default)]
+        modifiers: Vec<Modifier>,
+    },
+    Sequence {
+        steps: Vec<ShortcutStep>,
+    },
+    Midi {
+        channel: u8,
+        note: u8,
         #[serde(default = "default_velocity")]
         velocity: u8,
     },
+}
+
+impl<'de> serde::Deserialize<'de> for Shortcut {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use serde::de;
+
+        // Accept either a bare string or a tagged object.
+        struct ShortcutVisitor;
+
+        impl<'de> de::Visitor<'de> for ShortcutVisitor {
+            type Value = Shortcut;
+
+            fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+                f.write_str("a string shortcut or a tagged shortcut object")
+            }
+
+            fn visit_str<E: de::Error>(self, v: &str) -> std::result::Result<Shortcut, E> {
+                Ok(Shortcut::Key { key: v.to_string() })
+            }
+
+            fn visit_map<M: de::MapAccess<'de>>(
+                self,
+                map: M,
+            ) -> std::result::Result<Shortcut, M::Error> {
+                let tagged: TaggedShortcut =
+                    de::Deserialize::deserialize(de::value::MapAccessDeserializer::new(map))?;
+                Ok(match tagged {
+                    TaggedShortcut::Key { key } => Shortcut::Key { key },
+                    TaggedShortcut::KeyCombo { key, modifiers } => {
+                        Shortcut::KeyCombo { key, modifiers }
+                    }
+                    TaggedShortcut::Sequence { steps } => Shortcut::Sequence { steps },
+                    TaggedShortcut::Midi {
+                        channel,
+                        note,
+                        velocity,
+                    } => Shortcut::Midi {
+                        channel,
+                        note,
+                        velocity,
+                    },
+                })
+            }
+        }
+
+        deserializer.deserialize_any(ShortcutVisitor)
+    }
 }
 
 fn default_velocity() -> u8 {
@@ -281,7 +358,7 @@ impl CommandCatalog {
             commands: Vec<Command>,
         }
 
-        let file: CommandsFile = serde_yaml::from_str(yaml)?;
+        let file: CommandsFile = serde_yml::from_str(yaml)?;
         let mut catalog = Self::new();
 
         for cmd in file.commands {
@@ -350,7 +427,9 @@ mod tests {
             category: CommandCategory::Transport,
             deck: Some(Deck::Left),
             action_type: ActionType::PlayPause,
-            shortcut: Shortcut::Key("Z".to_string()),
+            shortcut: Shortcut::Key {
+                key: "Z".to_string(),
+            },
             safety: CommandSafety::default(),
         };
 
@@ -377,7 +456,9 @@ commands:
     synonyms: []
     category: transport
     action_type: play_pause
-    shortcut: Z
+    shortcut:
+      type: key
+      key: Z
 "#;
 
         let catalog = CommandCatalog::from_yaml(yaml).unwrap();

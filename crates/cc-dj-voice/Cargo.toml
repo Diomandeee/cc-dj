@@ -16,11 +16,7 @@ cc-dj-types = { workspace = true }
 cc-gemini = { workspace = true }
 
 tokio = { workspace = true }
-async-trait = { workspace = true }
-futures = { workspace = true }
 cpal = { workspace = true }
-serde = { workspace = true }
-serde_json = { workspace = true }
 thiserror = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true }
